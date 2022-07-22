@@ -1,5 +1,7 @@
 import axios from 'axios';
 import sdk from '@aeternity/aepp-sdk';
+import fs from 'fs';
+
 const { AeSdk, Node } = sdk;
 
 const NODE_URL = 'https://testnet-hc.aeternity.io/';
@@ -17,6 +19,13 @@ const getAndCompile = async () => {
 	});
 	const contract = await aeSdk.getContractInstance({ source: fetchedSource });
 	console.log('ACI is: ', contract._aci);
+	const encodedACI = JSON.stringify(contract._aci);
+	const tsSource = `export default ${encodedACI}`;
+	fs.writeFile('src/lib/aesdk/stakingContractACI.js', tsSource, (err) => {
+		if (err) {
+			console.log('ERROR:', err);
+		}
+	});
 };
 
 getAndCompile();

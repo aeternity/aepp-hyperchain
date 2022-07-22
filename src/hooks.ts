@@ -12,7 +12,7 @@ let serverConfig: ServerConfig | null = null;
 export const handle: Handle = async ({ event, resolve }) => {
 	if (!serverConfig) {
 		console.log('Configuring server...');
-		serverConfig = configServer();
+		serverConfig = await configServer();
 	}
 	if (!serverConfig) {
 		throw new Error('Server not configured properly. serverConfig object is null');

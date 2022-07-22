@@ -1,2 +1,2 @@
-declare module 'daisyui'
-declare module '@tailwindcss/typography'
+declare module 'daisyui';
+declare module '@tailwindcss/typography';

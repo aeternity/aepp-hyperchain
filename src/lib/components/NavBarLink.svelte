@@ -6,7 +6,7 @@
 
 <a
 	href={navUrl}
-	class="btn rounded-none no-animation hover:bg-primary-focus {currentPath === navUrl
-		? 'btn-active bg-primary-focus border-0 '
+	class="btn rounded-none no-animation hover:bg-secondary-focus/25  {currentPath === navUrl
+		? 'btn-active bg-secondary-focus/25 border-0 text-secondary-content '
 		: 'btn-ghost border-0'}">{text}</a
 >

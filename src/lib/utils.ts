@@ -19,3 +19,5 @@ export const formatAE = (i: number | bigint) => {
 	const aeAmount = toAe(i as any);
 	return `${parseFloat(aeAmount).toLocaleString('en')} AE`;
 };
+
+export const unixTime = (): number => Math.floor(Date.now() / 1000);

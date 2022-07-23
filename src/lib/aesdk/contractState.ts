@@ -6,7 +6,7 @@ export const getContractState = async (sdkInstance: SdkInstance) => {
 	return StateDecodedResult.parse(resp.decodedResult);
 };
 
-const ValidatorState = z.object({
+export const ValidatorState = z.object({
 	description: z.string(),
 	image_url: z.string(),
 	name: z.string(),
@@ -25,7 +25,7 @@ const ValidatorState = z.object({
 });
 export type ValidatorState = z.infer<typeof ValidatorState>;
 
-const Validator = z.object({
+export const Validator = z.object({
 	ct: z.string(),
 	is_online: z.boolean(),
 	stake: z.bigint(),
@@ -42,3 +42,5 @@ export const StateDecodedResult = z.object({
 	validators: z.array(Validator)
 });
 export type StateDecodedResult = z.infer<typeof StateDecodedResult>;
+
+export type ContractStateWithTimestamp = { st: StateDecodedResult; ts: number };

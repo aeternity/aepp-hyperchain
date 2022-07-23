@@ -2,51 +2,31 @@
   import { browser } from "$app/env";
   import { formatAE, fromJSON } from "../lib/utils";
   import { StateDecodedResult } from "../lib/aesdk/contractState";
-  import OnlineStatusBadge from "../lib/components/OnlineStatusBadge.svelte";
+  import { getValidatorByAk } from "../lib/serverConfig";
+  import ValidatorCard from "$lib/components/ValidatorCard.svelte";
 
   export var state: string | null;
-  const jsonDecoded = fromJSON(state);
-  const stDecoded = StateDecodedResult.parse(jsonDecoded);
+  const stDecoded = StateDecodedResult.parse(fromJSON(state));
 
   if (browser) {
-    // console.log(state);
-    console.log(stDecoded);
+    // console.log(stDecoded);
   }
+
+  const currentLeader = getValidatorByAk(stDecoded.leader);
 </script>
 
-<div class="xl:container bg-secondary/10 pt-2 pb-2 min-h-full">
-  <div class="card shadow-lg m-2 bg-base-100">
+<div class="xl:container bg-secondary/10 pt-1 pb-2 min-h-full">
+  <div class="header rounded-b-box shadow-lg mb-2 ml-2 mr-2 bg-base-100  border-primary/50">
     <div class="card-body p-4 ">
       <div class="flex">
-        <span class="flex-auto">Total stake in validators: {formatAE(stDecoded.total_stake)}</span>
-        <span class="flex-auto">validator_min_stake: {formatAE(stDecoded.validator_min_stake)}</span>
-        <span class="flex-end"> stake_minimum: {formatAE(stDecoded.stake_minimum)}</span>
+        <span class="flex-auto">Total Stake In Validators: {formatAE(stDecoded.total_stake)}</span>
+        <span class="flex-end"> Minimum Stake: {formatAE(stDecoded.stake_minimum)}</span>
       </div>
     </div>
   </div>
-  {#each stDecoded.validators as validator}
-    <div class="card shadow-lg bg-base-100 m-4 ">
-      <div class="card-body p-4">
-        <div class="card-title flex-1 align-top align-text-top">
-            <div class="avatar mr-4 flex-initial">
-              <div class="w-16 rounded">
-                <img src="{validator.state.image_url}" alt="{validator.state.image_url ? 'avatar' : 'no avatar'}" />
-              </div>
-            </div>
-            <div class="flex-1 align-top ">
-              <h3 class="align-top">
-                <a class="link link-primary"
-                   href="{`/validator/${validator.ct}`}">{validator.state.name || '[no name]'}</a>
-              </h3>
-            </div>
-            <div class="">
-              <OnlineStatusBadge online={validator.is_online} />
-            </div>
-        </div>
-        <p>{validator.state.description || '[no description]'}</p>
-        <p>stake {formatAE(validator.stake) } by {Object.keys(validator.state.delegates).length} delegates</p>
-        <!--				<p>shares {validator.state.shares}</p>-->
-      </div>
-    </div>
-  {/each}
+  <div class="p-4 space-y-4">
+    {#each stDecoded.validators as validator}
+      <ValidatorCard validator={validator} currentLeader={currentLeader} displayStakingButton=true />
+    {/each}
+  </div>
 </div>

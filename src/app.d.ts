@@ -13,7 +13,9 @@ declare global {
 			stateWithTimestamp: ContractStateWithTimestamp;
 		}
 		// interface Platform {}
-		// interface Session {}
+		interface Session {
+			wallet?: string;
+		}
 		// interface Stuff {}
 	}
 }

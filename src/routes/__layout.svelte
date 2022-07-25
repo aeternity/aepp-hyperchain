@@ -1,35 +1,52 @@
+<script lang="ts" context="module">
+  import type { Load } from "@sveltejs/kit";
+
+  export const load: Load = async ({ params, fetch, session, stuff }) => {
+    const response = await fetch("/config");
+    const jsonResp = response.ok ? await response.json() : null;
+    return {
+      status: response.status,
+      props: {
+        config: response.ok ? jsonResp : undefined
+      }
+    };
+  };
+</script>
+
 <script lang="ts">
   import "../app.css";
-  import { page } from "$app/stores";
+  import { page, getStores } from "$app/stores";
   import { assets } from "$app/paths";
   import NavBarLink from "$lib/components/NavBarLink.svelte";
   import WalletConnect from "../lib/components/WalletConnect.svelte";
 
+  export let config: { wallet: string, faucet: string };
   let currentPath: string;
   $: currentPath = $page.url.pathname;
+  // console.log(getStores());
 </script>
 
 <div class="min-h-screen">
-  <div class="bg-base-100 sticky top-0 z-30">
-    <div
-      class="navbar bg-primary text-primary mt-0 pt-0 pb-0 min-h-0 border-b-2 border-b-primary/10 shadow-lg">
-      <div class="navbar-start space-x-2">
-        <a class="btn btn-ghost rounded-none normal-case text-xl no-animation hover:bg-secondary/10" href="/">
-          <span class="avatar bg-base-100 rounded-lg m-0 p-1 pl-2 pr-2">
-            <span class="rounded-full">
-            <img alt="Aeternity Logo" src="{assets}/aeternity-logo.svg" />
+  <div class="bg-secondary sticky top-0 z-30">
+    <div class="navbar bg-secondary text-primary mt-0 pt-3 pb-3 shadow-lg">
+      <div class="navbar-start">
+        <a class="btn btn-secondary rounded-full normal-case text-xl no-animation" href="/">
+          <span class="avatar  rounded-lg m-0 p-2 pl-3 pr-3 rounded-full ">
+            <span class="">
+              <img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
             </span>
           </span>
-          <span class="w-2"></span>
-          <span class="italic text-primary-content">Hyperchains Demo</span>
+          <h1 class="font-light text-primary-content">
+            Hyperchains Demo
+          </h1>
         </a>
       </div>
-      <div class="navbar-center">
+      <div class="navbar-center space-x-1">
         <NavBarLink navUrl="/mypage" text="My Page" {currentPath} />
         <NavBarLink navUrl="/validators" text="Validators" {currentPath} />
       </div>
       <div class="navbar-end">
-        <WalletConnect />
+        <WalletConnect config={config} />
       </div>
     </div>
   </div>
@@ -40,7 +57,10 @@
 
     <footer class="footer footer-center items-center text-primary p-2 mt-4 ">
       <div class="items-center grid-flow-row">
-        <p>Copyright © 2022 - <a class="link" href="https://www.aeternity-foundation.org/">Aeternity Crypto Foundation</a></p>
+        <p>Copyright © 2022 - <a class="link" href="https://www.aeternity-foundation.org/" target="_blank">
+          Aeternity Crypto Foundation
+        </a>
+        </p>
       </div>
     </footer>
   </div>

@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import type { Handle } from '@sveltejs/kit';
+import type { GetSession, Handle } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 import { configServer, type ServerConfig } from './lib/serverConfig';
 import type { ContractStateWithTimestamp } from './lib/aesdk/contractState';
@@ -34,3 +34,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);
 };
+
+// export const getSession: GetSession = async (event) => {
+// 	event
+// };

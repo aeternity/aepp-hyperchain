@@ -17,7 +17,7 @@
   const validator = stDecoded.validators.find((v) => v.ct == ct)
 </script>
 
-<div class="container bg-secondary/25 p-4 space-y-4">
+<div class="container bg-neutral p-4 space-y-4">
   <ValidatorCard {validator} {currentLeader} />
   <div>
     <button class="btn btn-primary">Stake</button>

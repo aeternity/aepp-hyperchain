@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@aeternity/aepp-calldata': ^1.1.1
   '@aeternity/aepp-sdk': github:aeternity/aepp-sdk-js#feature/ceres
   '@playwright/test': ^1.22.2
   '@sveltejs/adapter-auto': next
@@ -28,19 +27,19 @@ specifiers:
   tailwindcss: ^3.1.6
   ts-node: ^10.9.1
   tslib: ^2.3.1
+  typeface-roboto: ^1.1.13
   typescript: ^4.7.4
   vite: ^3.0.0
   zod: ^3.17.9
 
 dependencies:
-  '@aeternity/aepp-calldata': 1.1.1
   '@aeternity/aepp-sdk': github.com/aeternity/aepp-sdk-js/ec0e37d238bdf9a4ac9dbccf4ff991f27555012c
   dotenv: 16.0.1
 
 devDependencies:
   '@playwright/test': 1.23.2
   '@sveltejs/adapter-auto': 1.0.0-next.63
-  '@sveltejs/kit': 1.0.0-next.390_svelte@3.49.0+vite@3.0.0
+  '@sveltejs/kit': 1.0.0-next.392_svelte@3.49.0+vite@3.0.0
   '@tailwindcss/typography': 0.5.4_tailwindcss@3.1.6
   '@types/json-bigint': 1.0.1
   '@types/node': 18.0.6
@@ -62,28 +61,15 @@ devDependencies:
   tailwindcss: 3.1.6_ts-node@10.9.1
   ts-node: 10.9.1_tdn3ypgnfy6bmey2q4hu5jonwi
   tslib: 2.4.0
+  typeface-roboto: 1.1.13
   typescript: 4.7.4
   vite: 3.0.0
   zod: 3.17.9
 
 packages:
 
-  /@aeternity/aepp-calldata/1.1.1:
-    resolution: {integrity: sha512-1c8KgDMMOrtQFUq3XJ4mSt62mLaFnyiWCLaKeX4smmaEYW/C9sc4RfjzUzL/cb/ou/+G8XTqv5U1exgn1OcTrw==}
-    dependencies:
-      '@aeternity/blakejs': 1.1.2
-      bs58: 4.0.1
-      rlp: 3.0.0
-      safe-buffer: 5.2.1
-      sha.js: 2.4.11
-    dev: false
-
   /@aeternity/argon2-browser/0.1.2:
     resolution: {integrity: sha512-nL3xZYf0JXVIm6HFyppXn9fgHjmSjYa1PBYXzD1/pLbECdikD+r3IuhIR3dAwn8nq9xShjHPr9ZnJUbbUvva4g==}
-    dev: false
-
-  /@aeternity/blakejs/1.1.2:
-    resolution: {integrity: sha512-RoLxLy3huy3glASelIzVMHjtXNgdFCVbYwHZYBSFcQ08KIWSBH2H6S67SzHzWf3+8bWUCMuvgt7qhamWlZV6eQ==}
     dev: false
 
   /@aeternity/uuid/0.0.1:
@@ -332,8 +318,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.390_svelte@3.49.0+vite@3.0.0:
-    resolution: {integrity: sha512-BlWjFL7v1y2vIYHMYMwH2Iy49eOkaunQ8jElQ9qMlC2kp/IdP3uLulS12ZX3oOURxoJICB4gQ82uEyjxen/kdQ==}
+  /@sveltejs/kit/1.0.0-next.392_svelte@3.49.0+vite@3.0.0:
+    resolution: {integrity: sha512-od4rDJ/Soq0I7mda7sTbAnNKERHSDEGNa7QBpLA859xgBkwC1JnEIymYOh9dm+hMyHhB0bUoRoaur0qxKLqOOw==}
     engines: {node: '>=16.9'}
     hasBin: true
     peerDependencies:
@@ -2644,6 +2630,10 @@ packages:
     dependencies:
       is-typedarray: 1.0.0
     dev: false
+
+  /typeface-roboto/1.1.13:
+    resolution: {integrity: sha512-YXvbd3a1QTREoD+FJoEkl0VQNJoEjewR2H11IjVv4bp6ahuIcw0yyw/3udC4vJkHw3T3cUh85FTg8eWef3pSaw==}
+    dev: true
 
   /typescript/4.7.4:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}

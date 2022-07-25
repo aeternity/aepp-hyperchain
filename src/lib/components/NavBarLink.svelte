@@ -1,12 +1,13 @@
 <script lang="ts">
-	export let currentPath: string;
-	export let navUrl: string;
-	export let text: string;
+  export let currentPath: string;
+  export let navUrl: string;
+  export let text: string;
 </script>
 
 <a
-	href={navUrl}
-	class="btn btn-primary rounded-none no-animation hover:bg-primary-focus/90 hover:text-secondary-content  {currentPath === navUrl
-		? 'btn-active border-0 '
-		: 'btn-ghost border-0 text-secondary-content'}">{text}</a
->
+  href={navUrl}
+  class="btn btn-secondary rounded-full no-animation
+   hover:bg-secondary-focus text-secondary-content normal-case
+  {currentPath === navUrl ? 'btn-active' : 'btn-ghost'}">
+  {text}
+</a>

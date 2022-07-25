@@ -15,7 +15,7 @@
   const currentLeader = getValidatorByAk(stDecoded.leader);
 </script>
 
-<div class="xl:container bg-secondary/10 pt-1 pb-2 min-h-full">
+<div class="xl:container bg-neutral pt-1 pb-2 min-h-full">
   <div class="header rounded-b-box shadow-lg mb-2 ml-2 mr-2 bg-base-100  border-primary/50">
     <div class="card-body p-4 ">
       <div class="flex">

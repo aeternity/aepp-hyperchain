@@ -1,5 +1,6 @@
 import JSONbig from 'json-bigint';
 import { toAe } from '@aeternity/aepp-sdk';
+import { sizeFormatter } from 'human-readable';
 
 const JSONbigConfigured = JSONbig({
 	useNativeBigInt: true,
@@ -15,9 +16,16 @@ export const fromJSON = (s: string) => {
 	return JSONbigConfigured.parse(s);
 };
 
-export const formatAE = (i: number | bigint) => {
+export const aettoToAe = (i: number | bigint) => {
 	const aeAmount = toAe(i as any);
-	return `${parseFloat(aeAmount).toLocaleString('en')} AE`;
+	return parseFloat(aeAmount);
 };
 
 export const unixTime = (): number => Math.floor(Date.now() / 1000);
+
+export const humanReadableFormatter = sizeFormatter({
+	std: 'SI',
+	decimalPlaces: 2,
+	keepTrailingZeroes: false,
+	render: (literal, symbol) => `${literal} ${symbol}`
+});

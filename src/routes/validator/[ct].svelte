@@ -2,7 +2,7 @@
   import { browser } from "$app/env";
   import { page } from "$app/stores";
   import { StateDecodedResult } from "../../lib/aesdk/contractState";
-  import { formatAE, fromJSON } from "../../lib/utils";
+  import { aettoToAe, fromJSON } from "../../lib/utils";
   import ValidatorCard from "../../lib/components/ValidatorCard.svelte";
   import { getValidatorByAk, getValidatorByCt } from "../../lib/serverConfig";
 
@@ -33,7 +33,7 @@
           {del}
         </div>
         <div class="navbar-end">
-          <p> amount: {formatAE(amount)}</p>
+          <p> amount: {aettoToAe(amount)}</p>
         </div>
       </div>
     {/each}

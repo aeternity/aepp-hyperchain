@@ -1,9 +1,10 @@
 <script lang="ts">
   import { browser } from "$app/env";
-  import { formatAE, fromJSON } from "../lib/utils";
+  import { aettoToAe, fromJSON } from "../lib/utils";
   import { StateDecodedResult } from "../lib/aesdk/contractState";
   import { getValidatorByAk } from "../lib/serverConfig";
   import ValidatorCard from "$lib/components/ValidatorCard.svelte";
+  import AeAmount from "../lib/components/AeAmount.svelte";
 
   export var state: string | null;
   const stDecoded = StateDecodedResult.parse(fromJSON(state));
@@ -16,11 +17,11 @@
 </script>
 
 <div class="xl:container bg-neutral pt-1 pb-2 min-h-full">
-  <div class="header rounded-b-box shadow-lg mb-2 ml-2 mr-2 bg-base-100  border-primary/50">
-    <div class="card-body p-4 ">
+  <div class="card overflow-visible rounded-b-box shadow-lg mb-2 ml-2 mr-2 bg-base-100  border-primary/50">
+    <div class="p-4 card-body">
       <div class="flex">
-        <span class="flex-auto">Total Stake In Validators: {formatAE(stDecoded.total_stake)}</span>
-        <span class="flex-end"> Minimum Stake: {formatAE(stDecoded.stake_minimum)}</span>
+        <span class="flex-auto">Total Stake In Validators: <AeAmount aetto={stDecoded.total_stake} /></span>
+        <span class="flex-end"> Minimum Stake: <AeAmount aetto={stDecoded.stake_minimum}/> </span>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ specifiers:
   '@types/node': ^18.0.6
   '@typescript-eslint/eslint-plugin': ^5.27.0
   '@typescript-eslint/parser': ^5.27.0
+  '@zerodevx/svelte-toast': ^0.7.2
   autoprefixer: ^10.4.7
   axios: ^0.27.2
   daisyui: ^2.19.0
@@ -17,6 +18,7 @@ specifiers:
   eslint: ^8.16.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^4.0.0
+  human-readable: ^0.2.1
   json-bigint: ^1.0.0
   postcss: ^8.4.14
   prettier: ^2.6.2
@@ -39,18 +41,20 @@ dependencies:
 devDependencies:
   '@playwright/test': 1.23.2
   '@sveltejs/adapter-auto': 1.0.0-next.63
-  '@sveltejs/kit': 1.0.0-next.392_svelte@3.49.0+vite@3.0.0
+  '@sveltejs/kit': 1.0.0-next.394_svelte@3.49.0+vite@3.0.0
   '@tailwindcss/typography': 0.5.4_tailwindcss@3.1.6
   '@types/json-bigint': 1.0.1
   '@types/node': 18.0.6
   '@typescript-eslint/eslint-plugin': 5.30.6_2vt5mtrqleafs33qg2bhpmbaqm
   '@typescript-eslint/parser': 5.30.6_4x5o4skxv6sl53vpwefgt23khm
+  '@zerodevx/svelte-toast': 0.7.2
   autoprefixer: 10.4.7_postcss@8.4.14
   axios: 0.27.2
   daisyui: 2.19.0_fgqzvxpz7ngmev6eakog5djgby
   eslint: 8.19.0
   eslint-config-prettier: 8.5.0_eslint@8.19.0
   eslint-plugin-svelte3: 4.0.0_jxmmfmurkts274jdspwh3cyqve
+  human-readable: 0.2.1
   json-bigint: 1.0.0
   postcss: 8.4.14
   prettier: 2.7.1
@@ -318,8 +322,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.392_svelte@3.49.0+vite@3.0.0:
-    resolution: {integrity: sha512-od4rDJ/Soq0I7mda7sTbAnNKERHSDEGNa7QBpLA859xgBkwC1JnEIymYOh9dm+hMyHhB0bUoRoaur0qxKLqOOw==}
+  /@sveltejs/kit/1.0.0-next.394_svelte@3.49.0+vite@3.0.0:
+    resolution: {integrity: sha512-YfRNSKdbvihHFvmQodaMlChcyf9dfU36FwK8WYQF5jqEmiRajLBb/ooU6RqPA0Z6j5okJHDSYBwxW8TP+nc+gg==}
     engines: {node: '>=16.9'}
     hasBin: true
     peerDependencies:
@@ -556,6 +560,10 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: true
+
+  /@zerodevx/svelte-toast/0.7.2:
+    resolution: {integrity: sha512-vWiY6IqsstcOoQ8PFBuFuxgPkj1JFAGhUF9gC7wLx7c5A9SSfdtxWs/39ekGSIeyJK0yqWhTcmzGrCEWSELzDw==}
     dev: true
 
   /abbrev/1.1.1:
@@ -1659,6 +1667,10 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+
+  /human-readable/0.2.1:
+    resolution: {integrity: sha512-uFtz4WZlB1M5xI45MZ5AjyAzfrrgLOdty4363Jd0LQ5NGXa+UiKaD0EQXQeDfCinodrpePFk/vKjzBlDTZdZQQ==}
+    dev: true
 
   /ieee754/1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}

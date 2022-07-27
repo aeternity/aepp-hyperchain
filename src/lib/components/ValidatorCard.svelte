@@ -1,14 +1,15 @@
 <script lang="ts">
   import { Validator } from "$lib/aesdk/contractState";
   import OnlineStatusBadge from "$lib/components/OnlineStatusBadge.svelte";
-  import { formatAE } from "$lib/utils.js";
+  import { aettoToAe } from "$lib/utils.js";
   import type { ValidatorDesc } from "$lib/serverConfig";
+  import AeAmount from "./AeAmount.svelte";
 
   export var validator: Validator;
   export var currentLeader: ValidatorDesc;
-  export var displayStakingButton: boolean = false;
+  export var displayStakingButton = false;
 </script>
-<div class="card shadow-lg bg-base-100">
+<div class="card shadow-lg bg-base-100 overflow-visible">
   <div class="card-body p-4">
     <div class="card-title flex-1 align-top align-text-top">
       <div class="avatar  mr-4 shadow-sm">
@@ -33,7 +34,7 @@
       {/if}
     </div>
     <p>{validator.state.description || '[no description]'}</p>
-    <p>{formatAE(validator.stake) } staked by {Object.keys(validator.state.delegates).length} delegators</p>
+    <p><AeAmount aetto={validator.stake} /> staked by {Object.keys(validator.state.delegates).length} delegators</p>
     <!--				<p>shares {validator.state.shares}</p>-->
   </div>
 </div>

@@ -1,5 +1,10 @@
 <script lang="ts" context="module">
   import type { Load } from "@sveltejs/kit";
+  import { SvelteToast} from "@zerodevx/svelte-toast";
+  import type {SvelteToastOptions}  from '@zerodevx/svelte-toast'
+
+  const toastOptions: SvelteToastOptions = {duration: 4000,
+    classes: ['toast', 'toast-bottom']};
 
   export const load: Load = async ({ params, fetch, session, stuff }) => {
     const response = await fetch("/config");
@@ -27,7 +32,7 @@
 </script>
 
 <div class="min-h-screen">
-  <div class="bg-secondary sticky top-0 z-30">
+  <div class="bg-secondary sticky top-0 z-40">
     <div class="navbar bg-secondary text-primary mt-0 pt-3 pb-3 shadow-lg">
       <div class="navbar-start">
         <a class="btn btn-secondary rounded-full normal-case text-xl no-animation" href="/">
@@ -42,7 +47,7 @@
         </a>
       </div>
       <div class="navbar-center space-x-1">
-        <NavBarLink navUrl="/mypage" text="My Page" {currentPath} />
+        <NavBarLink navUrl="/my-funds" text="My Funds" {currentPath} />
         <NavBarLink navUrl="/validators" text="Validators" {currentPath} />
       </div>
       <div class="navbar-end">
@@ -50,8 +55,8 @@
       </div>
     </div>
   </div>
-  <div class="overflow-scroll">
-    <div class="container mx-auto z-50">
+  <div class="">
+    <div class="container mx-auto z-10">
       <slot />
     </div>
 
@@ -65,3 +70,4 @@
     </footer>
   </div>
 </div>
+<SvelteToast options={toastOptions} />

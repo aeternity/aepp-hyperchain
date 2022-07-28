@@ -9,7 +9,7 @@
   // console.log(humanReadable)
   const copyToClipboard = () => {
     navigator.clipboard.writeText(aeAmount.toString()).then(function() {
-      toast.push("Copied to clipboard");
+      toast.push(`${aeAmount} Copied to clipboard`);
     }, function(err) {
       alert('Could not copy text to clipboard')
     });

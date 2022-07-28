@@ -9,6 +9,7 @@ export interface ValidatorDesc {
 
 export interface ServerConfig {
 	aeNodeURL: string;
+	networkId: string;
 	aeFaucetURL: string;
 	aeWalletURL: string;
 	stakingContract: string;
@@ -41,6 +42,7 @@ export const configServer = async (): Promise<ServerConfig> => {
 	const sdkInstance = await mkSdkInstance(aeNodeURL, stakingContract);
 	return {
 		aeNodeURL,
+		networkId: await sdkInstance.aeSdk.getNetworkId(),
 		aeFaucetURL: getEnvVar('AE_FAUCET_URL'),
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,

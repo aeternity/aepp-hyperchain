@@ -8,6 +8,7 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+		"lib": ["esnext.bigint", "dom", "ES2017"],
 	}
 }

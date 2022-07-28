@@ -24,11 +24,22 @@
   import { assets } from "$app/paths";
   import NavBarLink from "$lib/components/NavBarLink.svelte";
   import WalletConnect from "../lib/components/WalletConnect.svelte";
+  import { onMount } from "svelte";
+  import { walletConnectionStore } from "../lib/stores/walletConnectionStore";
+  import { mkSdk } from "../lib/aesdk/walletConnection";
+  import type { ClientGlobalConfig } from "./config";
 
-  export let config: { wallet: string, faucet: string };
+  export let config: ClientGlobalConfig;
   let currentPath: string;
   $: currentPath = $page.url.pathname;
   // console.log(getStores());
+  onMount(async () => {
+    const sdk = await mkSdk(config.node);
+    walletConnectionStore.update((s) => {
+      s.sdk = sdk;
+      return s
+    })
+  })
 </script>
 
 <div class="min-h-screen">
@@ -51,7 +62,7 @@
         <NavBarLink navUrl="/validators" text="Validators" {currentPath} />
       </div>
       <div class="navbar-end">
-        <WalletConnect config={config} />
+         <WalletConnect config={config} />
       </div>
     </div>
   </div>

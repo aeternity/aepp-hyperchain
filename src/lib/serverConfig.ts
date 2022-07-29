@@ -40,9 +40,10 @@ export const configServer = async (): Promise<ServerConfig> => {
 	const aeNodeURL = getEnvVar('AE_NODE_URL');
 	const stakingContract = getEnvVar('STAKING_CONTRACT');
 	const sdkInstance = await mkSdkInstance(aeNodeURL, stakingContract);
+	const networkId = await sdkInstance.aeSdk.getNetworkId();
 	return {
 		aeNodeURL,
-		networkId: await sdkInstance.aeSdk.getNetworkId(),
+		networkId,
 		aeFaucetURL: getEnvVar('AE_FAUCET_URL'),
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,

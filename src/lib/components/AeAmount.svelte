@@ -4,22 +4,19 @@
   import { toast } from "@zerodevx/svelte-toast";
 
   export let aetto: bigint;
+  export let dropdownReverse = false
   const aeAmount = aettoToAe(aetto);
   const humanReadable = humanReadableFormatter(aeAmount);
-  // console.log(humanReadable)
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(aeAmount.toString()).then(function() {
-      toast.push(`${aeAmount} Copied to clipboard`);
-    }, function(err) {
-      alert('Could not copy text to clipboard')
-    });
-  };
 </script>
 
-<span class="tooltip tooltip-right tooltip-info" data-tip="Click to copy" on:click={copyToClipboard}>
-<span class="mono text-primary font-bold tooltip tooltip-primary tooltip-bottom hover:z-50 hover:cursor-pointer "
+<span class="mono text-primary font-bold hover:z-50 dropdown dropdown-hover {dropdownReverse && 'dropdown-end'}"
       data-tip="{aeAmount}">
+  <label tabindex="0">
   <span class="font-bold">{humanReadable}</span>
   <span class="text-xl pl-1rem text-primary m-0">æ</span>
-</span>
+  </label>
+  <ul tabindex="0" class="dropdown-content menu p-2 pl-3 shadow-lg bg-base-100 rounded-box w-80 font-normal border">
+    <li>{aeAmount} æ</li>
+    <li>{aetto} ætto</li>
+  </ul>
 </span>

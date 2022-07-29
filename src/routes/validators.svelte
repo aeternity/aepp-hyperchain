@@ -21,7 +21,7 @@
     <div class="p-4 card-body">
       <div class="flex">
         <span class="flex-auto">Total Stake In Validators: <AeAmount aetto={stDecoded.total_stake} /></span>
-        <span class="flex-end"> Minimum Stake: <AeAmount aetto={stDecoded.stake_minimum}/> </span>
+        <span class="flex-end"> Minimum Stake: <AeAmount aetto={stDecoded.stake_minimum} dropdownReverse/> </span>
       </div>
     </div>
   </div>

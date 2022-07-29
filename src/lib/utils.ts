@@ -17,7 +17,7 @@ export const fromJSON = (s: string) => {
 };
 
 export const aettoToAe = (i: number | bigint) => {
-	const aeAmount = toAe(i as any);
+	const aeAmount = (+toAe(i as any)).toFixed(3);
 	return parseFloat(aeAmount);
 };
 

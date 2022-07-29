@@ -12,7 +12,7 @@ export const mkSdk = (node: string) =>
 		nodes: [
 			{
 				name: 'HC Node',
-				instance: new Node(node)
+				instance: new Node(node, { ignoreVersion: true })
 			}
 		],
 		// compilerUrl: "",

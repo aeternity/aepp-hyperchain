@@ -4,6 +4,7 @@
   import { aettoToAe } from "$lib/utils.js";
   import type { ValidatorDesc } from "$lib/serverConfig";
   import AeAmount from "./AeAmount.svelte";
+  import { getSharePrice } from "../aesdk/contractState.js";
 
   export var validator: Validator;
   export var currentLeader: ValidatorDesc;
@@ -28,13 +29,18 @@
         {/if}
       </div>
       {#if displayStakingButton}
-      <div class="flex-end">
-        <a class="btn btn-primary shadow shadow-lg" href="{`/validator/${validator.ct}`}">Staking</a>
-      </div>
+        <div class="flex-end">
+          <a class="btn btn-primary shadow shadow-lg" href="{`/validator/${validator.ct}`}">Staking</a>
+        </div>
       {/if}
     </div>
     <p>{validator.state.description || '[no description]'}</p>
-    <p><AeAmount aetto={validator.stake} /> staked by {Object.keys(validator.state.delegates).length} delegators</p>
-    <!--				<p>shares {validator.state.shares}</p>-->
+    <p>
+      <AeAmount aetto={validator.stake} />
+      staked by {Object.keys(validator.state.delegates).length} delegators
+    </p>
+    <p>shares {validator.state.shares}</p>
+    <p>share price {getSharePrice(validator)} aetto</p>
+    <p>{validator.state.shares * getSharePrice(validator)} AE calculated</p>
   </div>
 </div>

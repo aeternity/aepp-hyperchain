@@ -44,3 +44,8 @@ export const StateDecodedResult = z.object({
 export type StateDecodedResult = z.infer<typeof StateDecodedResult>;
 
 export type ContractStateWithTimestamp = { st: StateDecodedResult; ts: number };
+
+export const getSharePrice = (validator: Validator) => validator.stake / validator.state.shares;
+
+export const getAddrShares = (validator: Validator, addr: string) =>
+	Object.entries(validator.state.delegates).find(([k, v]) => k === addr)?.[1];

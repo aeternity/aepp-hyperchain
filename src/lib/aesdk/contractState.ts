@@ -1,5 +1,6 @@
 import type { SdkInstance } from './instance';
 import { z } from 'zod';
+import validators from '../../routes/validators.svelte';
 
 export const getContractState = async (sdkInstance: SdkInstance) => {
 	const resp = await sdkInstance.stakingContract.call('get_state', [], { callStatic: true });
@@ -45,7 +46,8 @@ export type StateDecodedResult = z.infer<typeof StateDecodedResult>;
 
 export type ContractStateWithTimestamp = { st: StateDecodedResult; ts: number };
 
-export const getSharePrice = (validator: Validator) => validator.stake / validator.state.shares;
-
 export const getAddrShares = (validator: Validator, addr: string) =>
 	Object.entries(validator.state.delegates).find(([k, v]) => k === addr)?.[1];
+
+export const sharesToAetto = (validator: Validator, shares: bigint) =>
+	(shares * validator.stake) / validator.state.shares;

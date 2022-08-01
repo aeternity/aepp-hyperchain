@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { toAe } from "@aeternity/aepp-sdk";
   import { aettoToAe, humanReadableFormatter } from "../utils.js";
-  import { toast } from "@zerodevx/svelte-toast";
 
   export let aetto: bigint;
-  export let dropdownReverse = false
+  export let dropdownReverse = false;
   const aeAmount = aettoToAe(aetto);
   const humanReadable = humanReadableFormatter(aeAmount);
 </script>

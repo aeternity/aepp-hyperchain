@@ -32,8 +32,10 @@ export const walletConnectionStore = writable<WalletConnectionStore>({
 	connectedWallet: null
 });
 
+export const walletConnectModalOpen = writable<boolean>(false);
+
 export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
-	const conn = await sdk.connectToWallet(await wallet.getConnection());
+	await sdk.connectToWallet(await wallet.getConnection());
 	const subscribedAddr = await sdk.subscribeAddress(<SUBSCRIPTION_TYPES>'subscribe', 'connected');
 	const {
 		address: { current }
@@ -52,6 +54,7 @@ export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
 		s.walletsFound = [];
 		return s;
 	});
+	walletConnectModalOpen.set(false);
 };
 
 export const disconnectWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {

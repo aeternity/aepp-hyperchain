@@ -55,7 +55,7 @@
 						</p>
 					</div>
 					{#if modalOpen === 'staking'}
-						<AeAmountInput aettoAvailable={wallet.balAETTO} action="STAKE" />
+						<AeAmountInput aettoAvailable={wallet.balAETTO} action="STAKE" {validator} />
 					{:else if modalOpen === 'unstaking'}
 						unstaking not implemented
 					{/if}

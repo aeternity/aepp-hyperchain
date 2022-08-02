@@ -7,10 +7,12 @@ export type ClientGlobalConfig = {
 	node: string;
 	networkId: string;
 	minStakeAetto: string;
+	stakingContract: string;
 };
 
 export const GET: RequestHandler = (event) => {
-	const { aeWalletURL, aeFaucetURL, aeNodeURL, networkId } = event.locals.serverConfig;
+	const { aeWalletURL, aeFaucetURL, aeNodeURL, networkId, stakingContract } =
+		event.locals.serverConfig;
 	const minStake = toJSON(event.locals.stateWithTimestamp.st.stake_minimum);
 	return {
 		code: 200,
@@ -19,7 +21,8 @@ export const GET: RequestHandler = (event) => {
 			faucet: aeFaucetURL,
 			node: aeNodeURL,
 			networkId,
-			minStakeAetto: minStake
+			minStakeAetto: minStake,
+			stakingContract
 		} as ClientGlobalConfig
 	};
 };

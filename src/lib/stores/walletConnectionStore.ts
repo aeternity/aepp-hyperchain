@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import type { BrowserWindowMessageConnection } from '@aeternity/aepp-sdk';
 import type { AeSdkAepp } from '@aeternity/aepp-sdk';
 import type { SUBSCRIPTION_TYPES } from '@aeternity/aepp-sdk';
-import { AE_AMOUNT_FORMATS, getAccount, toAe } from '@aeternity/aepp-sdk';
+import { AE_AMOUNT_FORMATS } from '@aeternity/aepp-sdk';
 
 // TODO remove this type when pull request for making these public from the SDK gets merged
 export interface Wallet {
@@ -52,12 +52,14 @@ export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
 		s.connectedWallet = { w: wallet, addr: address, balAETTO: BigInt(balAETTO) };
 		s.detectorDisconnect = null;
 		s.walletsFound = [];
+		s.sdk = sdk;
 		return s;
 	});
 	walletConnectModalOpen.set(false);
+	return sdk;
 };
 
-export const disconnectWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
+export const disconnectWallet = async (sdk: AeSdkAepp) => {
 	sdk.disconnectWallet();
 	walletConnectionStore.update((s) => {
 		s.connectedWallet = null;

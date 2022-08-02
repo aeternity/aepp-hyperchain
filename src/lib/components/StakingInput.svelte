@@ -1,11 +1,22 @@
 <script lang="ts">
-	import { AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
+	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
 	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import AeAmount from './AeAmount.svelte';
+	import stakingContractACI from '$lib/aesdk/stakingContractACI';
+	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
+	import type { Validator } from '../aesdk/contractState';
+	import { getValidatorByCt } from '$lib/serverConfig';
 
 	export let action: 'STAKE' | 'UNSTAKE';
 	export let aettoAvailable: bigint = 0n;
+	export let validator: Validator;
+
+	$: sdk = $walletConnectionStore.sdk!;
+	$: wallet = $walletConnectionStore.connectedWallet!;
+	$: stakingContrAddr = $clientGlobalConfigStore?.stakingContract!;
+
+	$: validatorDesc = getValidatorByCt(validator.ct);
 	$: aeAvailable = parseFloat(toAe(aettoAvailable as any));
 	$: aetto = 0n;
 	$: ae = parseFloat(toAe(aetto as any));
@@ -13,7 +24,7 @@
 	$: inputClass = outsideRange ? 'input-error' : 'input-secondary';
 	$: spendingAllAe = aetto === aettoAvailable && action === 'STAKE';
 	$: belowMinStake = aetto < $minStakeAetto;
-	$: btnDisabled = outsideRange || spendingAllAe || belowMinStake;
+	$: btnDisabled = outsideRange || spendingAllAe || belowMinStake || !validatorDesc;
 
 	console.log('clientGlobalConfig', $clientGlobalConfigStore);
 
@@ -82,12 +93,21 @@
 			Trying to spend all AE
 		{:else if belowMinStake}
 			Amount is below the minimum stake
+		{:else if !validatorDesc}
+			Validator address not known (should not happen)
 		{/if}
 	</div>
 	<div class="flex  justify-end">
 		<button
 			class="btn btn-primary w-56 {btnDisabled && 'btn-disabled'}"
-			on:click={() => console.log('clicked submit')}
+			on:click={async () => {
+				const stakingContract = await sdk.getContractInstance({
+					aci: stakingContractACI,
+					contractAddress: stakingContrAddr
+				});
+				const result = await stakingContract.methods.stake(validatorDesc?.ak, { amount: aetto });
+				console.log('stakign result', result);
+			}}
 			>{action}
 		</button>
 	</div>

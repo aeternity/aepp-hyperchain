@@ -28,6 +28,8 @@
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
+	import stakingContractACI from '$lib/aesdk/stakingContractACI';
+	import { ContractError } from '@aeternity/aepp-sdk';
 
 	export let config: ClientGlobalConfig;
 	let currentPath: string;
@@ -49,7 +51,7 @@
 		<div class="navbar bg-secondary text-primary mt-0 pt-3 pb-3 shadow-lg">
 			<div class="navbar-start">
 				<a class="btn btn-secondary rounded-full normal-case text-xl no-animation" href="/">
-					<span class="avatar  rounded-lg m-0 p-2 pl-3 pr-3 rounded-full ">
+					<span class="avatar  m-0 p-2 pl-3 pr-3 rounded-full ">
 						<span class="">
 							<img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
 						</span>

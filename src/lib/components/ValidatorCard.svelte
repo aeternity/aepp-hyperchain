@@ -7,7 +7,7 @@
 
 	export var validator: Validator;
 	export var currentLeader: ValidatorDesc;
-	export var displayStakingButton = false;
+	export var displayStakingButton: boolean = false;
 </script>
 
 <div class="card shadow-lg bg-base-100 overflow-visible">
@@ -34,8 +34,7 @@
 			</div>
 			{#if displayStakingButton}
 				<div class="flex-end">
-					<a class="btn btn-primary shadow shadow-lg" href={`/validator/${validator.ct}`}>Staking</a
-					>
+					<a class="btn btn-primary shadow" href={`/validator/${validator.ct}`}>Staking</a>
 				</div>
 			{/if}
 		</div>

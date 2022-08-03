@@ -3,33 +3,37 @@
 	import { sharesToAetto } from '../aesdk/contractState.js';
 	import AeAmount from './AeAmount.svelte';
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
-	import AeAmountInput from './StakingInput.svelte';
+	import StakingInput from './StakingInput.svelte';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
+	import UnstakingInput from './UnstakingInput.svelte';
 
 	export let validator: Validator;
 	$: wallet = $walletConnectionStore.connectedWallet;
 	$: myShares = wallet?.addr ? getAddrShares(validator, wallet.addr) || 0n : 0n;
-	$: aeStaked = sharesToAetto(validator, myShares);
+	$: aettoStaked = sharesToAetto(validator, myShares);
 
 	let modalOpen: null | 'staking' | 'unstaking' = null;
 </script>
 
 {#if wallet}
-	<div class="card p-2 shadow-xl bg-base-100">
+	<div class="card p-2 shadow-xl bg-base-100 ">
 		<div class="card-body">
 			<p>
-				Your stake with {validator.state.name}: {myShares} shares,
-				<AeAmount aetto={aeStaked} />
+				Your stake with {validator.state.name}:
+				<span class="text-secondary font-bold">{myShares} shares</span>,
+				<AeAmount aetto={aettoStaked} />
 			</p>
 		</div>
 		<div class="card-actions align-middle">
 			<button class="btn btn-primary w-52" on:click={() => (modalOpen = 'staking')}>Stake</button>
 			{#if myShares}
-				<button class="btn btn-secondary w-52">Unstake</button>
+				<button class="btn btn-secondary w-52" on:click={() => (modalOpen = 'unstaking')}>
+					Unstake
+				</button>
 			{/if}
 		</div>
 		<div
-			class="modal {modalOpen === 'staking' && 'modal-open'}"
+			class="modal {!!modalOpen && 'modal-open'}"
 			on:click={() => {
 				modalOpen = null;
 			}}
@@ -43,21 +47,17 @@
 				<div>
 					<div class="mb-4">
 						<p>
-							Your stake with {validator.state.name}: {myShares} shares,
-							<AeAmount aetto={aeStaked} />
+							Your stake with {validator.state.name}:
+							<span class="text-secondary font-bold">{myShares} shares</span>,
+							<AeAmount aetto={aettoStaked} />
 						</p>
-						<p>
-							Available in wallet:
-							<AeAmount aetto={wallet.balAETTO} />
-						</p>
-						<p>
-							Min Stake: <AeAmount aetto={$minStakeAetto} />
-						</p>
+						<p>Available in wallet: <AeAmount aetto={wallet.balAETTO} /></p>
+						<p>Min Stake: <AeAmount aetto={$minStakeAetto} /></p>
 					</div>
 					{#if modalOpen === 'staking'}
-						<AeAmountInput aettoAvailable={wallet.balAETTO} action="STAKE" {validator} />
+						<StakingInput aettoAvailable={wallet.balAETTO} {validator} />
 					{:else if modalOpen === 'unstaking'}
-						unstaking not implemented
+						<UnstakingInput sharesInValidator={myShares} {validator} />
 					{/if}
 				</div>
 			</div>

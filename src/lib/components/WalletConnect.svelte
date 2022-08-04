@@ -6,12 +6,25 @@
 		walletConnectionStore,
 		walletConnectModalOpen
 	} from '../stores/walletConnectionStore.js';
+	import AeAmount from './AeAmount.svelte';
 	import WalletCard from './WalletCard.svelte';
 
 	export let config: ClientGlobalConfig;
 
+	$: scanning = $walletConnectionStore.scanning;
 	$: wallets = $walletConnectionStore.walletsFound;
 	$: conn = $walletConnectionStore.connectedWallet;
+
+	const closeScanner = () => {
+		if (scanning) {
+			if ($walletConnectionStore.detectorDisconnect) {
+				$walletConnectionStore.detectorDisconnect();
+			}
+			walletConnectionStore.update((s) => ({ ...s, detectorDisconnect: null, scanning: false }));
+
+			walletConnectModalOpen.set(false);
+		}
+	};
 </script>
 
 <div>
@@ -19,10 +32,18 @@
 		class="btn btn-secondary rounded-full border-neutral no-animation {conn ? 'normal-case' : ''} "
 		on:click={() => {
 			walletConnectModalOpen.set(true);
-			detectWallets(config.wallet);
+			if (!conn?.addr && !scanning) {
+				detectWallets(config.wallet);
+			}
 		}}
 	>
-		{conn?.addr ? conn.addr.slice(0, 8) + '...' + conn.addr.slice(conn.addr.length - 8) : 'Connect'}
+		{#if $walletConnectionStore.scanning}
+			Scanning for wallets...
+		{:else}
+			{conn?.addr
+				? conn.addr.slice(0, 8) + '...' + conn.addr.slice(conn.addr.length - 8)
+				: 'Connect'}
+		{/if}
 	</button>
 
 	<div

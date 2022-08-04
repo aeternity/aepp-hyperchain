@@ -1,6 +1,5 @@
 import type { SdkInstance } from './instance';
 import { z } from 'zod';
-import validators from '../../routes/validators.svelte';
 
 export const getContractState = async (sdkInstance: SdkInstance) => {
 	const resp = await sdkInstance.stakingContract.call('get_state', [], { callStatic: true });

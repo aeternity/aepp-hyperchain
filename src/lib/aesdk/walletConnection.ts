@@ -31,7 +31,7 @@ export const detectWallets = async (walletUrl: string) => {
 	createBaseAeppIframe(walletUrl);
 	const conn = new BrowserWindowMessageConnection({ debug: false });
 	// console.log('sdk is', conn);
-	walletConnectionStore.update((s) => ({ ...s, scans: s.scans + 1 }));
+	walletConnectionStore.update((s) => ({ ...s, scans: s.scans + 1, scanning: true }));
 	const detector = walletDetector(conn, ({ wallets, newWallet }) => {
 		const foundWallets = Object.values(wallets).map((w) => w) as any;
 		// console.log('found wallets', foundWallets);

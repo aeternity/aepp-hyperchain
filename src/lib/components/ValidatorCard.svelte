@@ -13,14 +13,16 @@
 <div class="card shadow-lg bg-base-100 overflow-visible">
 	<div class="card-body p-4">
 		<div class="card-title flex-1 align-top">
-			<div class="avatar  mr-4 shadow-sm">
-				<div class="w-16 rounded  border-neutral border-2">
-					<img
-						src={validator.state.image_url}
-						alt={validator.state.image_url ? 'avatar' : 'no avatar'}
-					/>
+			<a sveltekit:prefetch href={`/validator/${validator.ct}`}>
+				<div class="avatar  mr-4 shadow-sm">
+					<div class="w-16 rounded  border-neutral border-2">
+						<img
+							src={validator.state.image_url}
+							alt={validator.state.image_url ? 'avatar' : 'no avatar'}
+						/>
+					</div>
 				</div>
-			</div>
+			</a>
 			<div class="flex flex-auto align-top ">
 				<h3 class="mr-4">
 					<a sveltekit:prefetch class="link link-primary" href={`/validator/${validator.ct}`}>

@@ -24,7 +24,7 @@
 	import NavBarLink from '$lib/components/NavBarLink.svelte';
 	import WalletConnect from '../lib/components/WalletConnect.svelte';
 	import { onMount } from 'svelte';
-	import { walletConnectionStore } from '../lib/stores/walletConnectionStore';
+	import { reconnectToWallet, walletConnectionStore } from '../lib/stores/walletConnectionStore';
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
@@ -43,6 +43,7 @@
 			s.sdk = sdk;
 			return s;
 		});
+		reconnectToWallet(config);
 	});
 </script>
 

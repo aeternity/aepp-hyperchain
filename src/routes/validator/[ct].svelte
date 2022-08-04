@@ -12,33 +12,37 @@
 
 	export var state: string | null;
 	const ct: string = $page.params['ct'];
-	const stDecoded = StateDecodedResult.parse(fromJSON(state));
+	$: stDecoded = state ? StateDecodedResult.parse(fromJSON(state)) : undefined;
 	if (browser) {
 		// console.log(stDecoded)
 	}
-	const currentLeader = getValidatorByAk(stDecoded.leader);
-	const validator = stDecoded.validators.find((v) => v.ct == ct);
+	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.leader) : undefined;
+	$: validator = stDecoded?.validators.find((v) => v.ct == ct);
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">
-	<ValidatorCard {validator} {currentLeader} />
-	<StakingCard {validator} />
-	<div class="container mx-auto ">
-		<div class="prose">
-			<h2>Delegators</h2>
-		</div>
-		<div class="space-y-2 max-w-5xl">
-			{#each Object.entries(validator.state.delegates) as [del, amount], i}
-				<div class="navbar rounded-md bg-base-100 p-2">
-					<div class="navbar-start ">
-						<div>{del}</div>
+	{#if !validator}
+		<div>Validator not found</div>
+	{:else}
+		<ValidatorCard {validator} {currentLeader} />
+		<StakingCard {validator} />
+		<div class="container mx-auto ">
+			<div class="prose">
+				<h2>Delegators</h2>
+			</div>
+			<div class="space-y-2 max-w-5xl">
+				{#each Object.entries(validator.state.delegates) as [del, amount], i}
+					<div class="navbar rounded-md bg-base-100 p-2">
+						<div class="navbar-start ">
+							<div>{del}</div>
+						</div>
+						<div class="navbar-end space-x-2">
+							<div class="border rounded-md p-1">{amount} shares</div>
+							<AeAmount aetto={sharesToAetto(validator, amount)} dropdownReverse />
+						</div>
 					</div>
-					<div class="navbar-end space-x-2">
-						<div class="border rounded-md p-1">{amount} shares</div>
-						<AeAmount aetto={sharesToAetto(validator, amount)} dropdownReverse />
-					</div>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
-	</div>
+	{/if}
 </div>

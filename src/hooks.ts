@@ -23,8 +23,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	event.locals.serverConfig = serverConfig;
 
-	if (!validatorsState?.ts || validatorsState.ts < unixTime() - 30) {
-		console.log('Updating validators state...');
+	if (!validatorsState?.ts || validatorsState.ts < unixTime() - 2) {
+		// console.log('Updating validators state...');
 		const contractState = await getContractState(serverConfig.sdkInstance);
 		validatorsState = { st: contractState, ts: unixTime() };
 	}

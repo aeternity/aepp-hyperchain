@@ -33,7 +33,7 @@
 	</div>
 	<div class="p-4 space-y-4">
 		{#each stDecoded.validators as validator}
-			<ValidatorCard {validator} {currentLeader} displayStakingButton="true" />
+			<ValidatorCard {validator} {currentLeader} displayStakingButton={true} />
 		{/each}
 	</div>
 </div>

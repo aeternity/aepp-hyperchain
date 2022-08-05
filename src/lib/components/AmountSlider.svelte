@@ -3,7 +3,7 @@
 	export let max: bigint;
 	export let color: 'primary' | 'secondary';
 	export let onChange: (newAmount: bigint) => void;
-	$: value = Number((amount * 100n) / max);
+	$: value = Number((amount * 100n) / (max || 1n));
 </script>
 
 <div>

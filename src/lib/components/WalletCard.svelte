@@ -4,7 +4,7 @@
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
 	import { connectToWallet, disconnectWallet } from '../stores/walletConnectionStore.js';
 	import { detectWallets } from '../aesdk/walletConnection.js';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 
 	export let withBorder = true;
 	export let wallet: Wallet;

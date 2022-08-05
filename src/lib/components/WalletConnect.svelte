@@ -6,7 +6,7 @@
 		walletConnectionStore,
 		walletConnectModalOpen
 	} from '../stores/walletConnectionStore.js';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 	import WalletCard from './WalletCard.svelte';
 
 	export let config: ClientGlobalConfig;

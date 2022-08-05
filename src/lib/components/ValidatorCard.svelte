@@ -3,7 +3,7 @@
 	import OnlineStatusBadge from '$lib/components/OnlineStatusBadge.svelte';
 	import { aettoToAe } from '$lib/utils.js';
 	import type { ValidatorDesc } from '$lib/serverConfig';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 
 	export var validator: Validator;
 	export var currentLeader: ValidatorDesc | undefined;

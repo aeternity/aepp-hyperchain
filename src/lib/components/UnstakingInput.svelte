@@ -2,7 +2,7 @@
 	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
 	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 	import stakingContractACI from '$lib/aesdk/stakingContractACI';
 	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import { sharesToAetto, type Validator } from '../aesdk/contractState';

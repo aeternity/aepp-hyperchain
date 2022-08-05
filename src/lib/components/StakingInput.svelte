@@ -2,7 +2,7 @@
 	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
 	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 	import stakingContractACI from '$lib/aesdk/stakingContractACI';
 	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
@@ -31,13 +31,13 @@
 <div class="space-y-4">
 	<div class="form-control font-bold text-primary">
 		<div>
-			aetto amount:
+			HCsats amount:
 			<label class="label">
 				<input type="number" bind:value={aetto} class="input input-bordered w-full" />
 			</label>
 		</div>
 		<div>
-			ae amount:
+			HCcoin amount:
 			<label class="label">
 				<input
 					type="number"

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getAddrShares, Validator } from '../aesdk/contractState';
 	import { sharesToAetto } from '../aesdk/contractState.js';
-	import AeAmount from './AeAmount.svelte';
+	import AeAmount from './CoinAmount.svelte';
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
 	import StakingInput from './StakingInput.svelte';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
@@ -16,18 +16,22 @@
 </script>
 
 {#if wallet}
-	<div class="card p-2 shadow-xl bg-base-100 ">
+	<div class="card p-4 shadow-xl bg-base-100 max-w-3xl ">
+		<div class="card-title text-primary font-light">
+			Your stake with {validator.state.name}
+		</div>
 		<div class="card-body">
 			<p>
-				Your stake with {validator.state.name}:
 				<span class="text-secondary font-bold">{myShares} shares</span>,
 				<AeAmount aetto={aettoStaked} />
 			</p>
 		</div>
-		<div class="card-actions align-middle">
-			<button class="btn btn-primary w-52" on:click={() => (modalOpen = 'staking')}>Stake</button>
+		<div class="card-actions justify-end">
+			<button class="btn btn-primary btn-sm w-52" on:click={() => (modalOpen = 'staking')}
+				>Stake</button
+			>
 			{#if myShares}
-				<button class="btn btn-secondary w-52" on:click={() => (modalOpen = 'unstaking')}>
+				<button class="btn btn-secondary btn-sm w-52" on:click={() => (modalOpen = 'unstaking')}>
 					Unstake
 				</button>
 			{/if}

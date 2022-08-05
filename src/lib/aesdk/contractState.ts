@@ -50,3 +50,13 @@ export const getAddrShares = (validator: Validator, addr: string) =>
 
 export const sharesToAetto = (validator: Validator, shares: bigint) =>
 	(shares * validator.stake) / validator.state.shares;
+
+export const totalStakedForAddr = (st: StateDecodedResult, addr: string): bigint => {
+	return st?.validators
+		.map((v) => {
+			const sh = getAddrShares(v, addr) || 0n;
+			const aetto = sharesToAetto(v, sh);
+			return aetto;
+		})
+		.reduce((total, cur) => total + cur, 0n);
+};

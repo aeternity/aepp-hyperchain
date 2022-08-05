@@ -5,19 +5,19 @@
 	import { fromJSON } from '../../lib/utils';
 	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
 	import { getValidatorByAk, getValidatorByCt } from '../../lib/serverConfig';
-	import AeAmount from '../../lib/components/AeAmount.svelte';
+	import AeAmount from '../../lib/components/CoinAmount.svelte';
 	import { walletConnectionStore } from '../../lib/stores/walletConnectionStore';
 	import { sharesToAetto } from '../../lib/aesdk/contractState.js';
 	import StakingCard from '../../lib/components/StakingCard.svelte';
+	import { validatorsStore } from '$lib/stores/validatorsSore';
 
-	export var state: string | null;
+	export var state: string;
 	const ct: string = $page.params['ct'];
-	$: stDecoded = state ? StateDecodedResult.parse(fromJSON(state)) : undefined;
-	if (browser) {
-		// console.log(stDecoded)
-	}
-	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.leader) : undefined;
-	$: validator = stDecoded?.validators.find((v) => v.ct == ct);
+
+	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
+	$: stDecoded = stateFromStore ? stateFromStore : StateDecodedResult.parse(fromJSON(state));
+	$: currentLeader = getValidatorByAk(stDecoded.leader);
+	$: validator = stDecoded.validators.find((v) => v.ct == ct);
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">

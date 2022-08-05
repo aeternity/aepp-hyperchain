@@ -6,10 +6,10 @@
 	const toastOptions: SvelteToastOptions = { duration: 4000, classes: ['toast', 'toast-bottom'] };
 
 	export const load: Load = async ({ params, fetch, session, stuff }) => {
-		const response = await fetch('/config');
-		const jsonResp = response.ok ? await response.json() : null;
+		const configResp = await fetch('/config');
+		const jsonResp = configResp.ok ? await configResp.json() : null;
 		return {
-			status: response.status,
+			status: configResp.status,
 			props: {
 				config: jsonResp || undefined
 			}
@@ -30,6 +30,9 @@
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import stakingContractACI from '$lib/aesdk/stakingContractACI';
 	import { ContractError } from '@aeternity/aepp-sdk';
+	import { fromJSON } from '$lib/utils';
+	import { StateDecodedResult } from '$lib/aesdk/contractState';
+	import { fetchValidatorsState } from '$lib/stores/validatorsSore';
 
 	export let config: ClientGlobalConfig;
 	let currentPath: string;
@@ -39,10 +42,8 @@
 		const sdk = await mkSdk(config.node);
 		clientGlobalConfigStore.set(config);
 		minStakeAetto.set(BigInt(config.minStakeAetto));
-		walletConnectionStore.update((s) => {
-			s.sdk = sdk;
-			return s;
-		});
+		walletConnectionStore.update((s) => ({ ...s, sdk }));
+		window.setInterval(fetchValidatorsState, 5000);
 		reconnectToWallet(config);
 	});
 </script>
@@ -57,7 +58,7 @@
 							<img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
 						</span>
 					</span>
-					<h1 class="font-light text-primary-content">Hyperchains Demo</h1>
+					<h1 class="font-light text-primary-content">Hyperchains</h1>
 				</a>
 			</div>
 			<div class="navbar-center space-x-1">

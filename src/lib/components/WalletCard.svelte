@@ -35,7 +35,7 @@
 				{wallet.info.networkId}
 			</span>
 		</p>
-		{#if connectedToWallet}
+		{#if conn}
 			<p>Address: {conn.addr}</p>
 			<p>
 				Balance:
@@ -48,7 +48,9 @@
 			<button
 				class="btn btn-primary"
 				on:click={() => {
-					disconnectWallet(sdk, wallet);
+					if (sdk) {
+						disconnectWallet(sdk);
+					}
 					detectWallets(config.wallet);
 				}}
 				>Disconnect
@@ -57,7 +59,11 @@
 			<button
 				class="btn btn-secondary"
 				disabled={!sameNetwork}
-				on:click={() => connectToWallet(sdk, wallet)}
+				on:click={() => {
+					if (sdk) {
+						connectToWallet(sdk, wallet);
+					}
+				}}
 				>connect
 			</button>
 		{/if}

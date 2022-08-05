@@ -1,4 +1,4 @@
-import type { SdkInstance } from './instance';
+import type { SdkInstance } from './serverAeSdk';
 import { z } from 'zod';
 
 export const getContractState = async (sdkInstance: SdkInstance) => {

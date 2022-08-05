@@ -1,5 +1,5 @@
-import type { SdkInstance } from './aesdk/instance';
-import { mkSdkInstance } from './aesdk/instance';
+import type { SdkInstance } from './aesdk/serverAeSdk';
+import { mkSdkInstance } from './aesdk/serverAeSdk';
 
 export interface ValidatorDesc {
 	ak: string;

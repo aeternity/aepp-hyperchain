@@ -5,7 +5,7 @@
 <div class="container mt-8">
 	<div class="prose prose-3xl mb-8">
 		<h1 class="font-light">Hyperchains Alpha Network</h1>
-		<ul>
+		<ul class="space-y-4">
 			<li>
 				<DocumentationLink
 					text="Hyperchains FAQ thread"

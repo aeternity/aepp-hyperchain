@@ -24,7 +24,11 @@
 	import NavBarLink from '$lib/components/NavBarLink.svelte';
 	import WalletConnect from '../lib/components/WalletConnect.svelte';
 	import { onMount } from 'svelte';
-	import { reconnectToWallet, walletConnectionStore } from '../lib/stores/walletConnectionStore';
+	import {
+		reconnectToWallet,
+		updateAccountBalance,
+		walletConnectionStore
+	} from '../lib/stores/walletConnectionStore';
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
@@ -44,6 +48,7 @@
 		minStakeAetto.set(BigInt(config.minStakeAetto));
 		walletConnectionStore.update((s) => ({ ...s, sdk }));
 		window.setInterval(fetchValidatorsState, 5000);
+		window.setInterval(updateAccountBalance, 5000);
 		reconnectToWallet(config);
 	});
 </script>

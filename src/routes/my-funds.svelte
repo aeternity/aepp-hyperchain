@@ -21,18 +21,20 @@
 		<div class="card-title"><h2 class="mt-4">My Funds</h2></div>
 		<div class="card-body p-3">
 			{#if wallet}
-				<div class="alert">
+				<div class="alert bg-secondary/10 border border-secondary">
 					Available in wallet: <CoinAmount aetto={wallet.balAETTO} dropdownReverse />
 				</div>
 				<div class="space-y-2">
 					{#if vs}
-						<div class="alert border border-primary">
+						<div class="alert bg-primary/10 border border-primary/50">
 							Total staked: <CoinAmount aetto={myTotalStake} dropdownReverse />
 						</div>
 						{#if !myValidators?.length}
 							<div>
 								<a sveltekit:prefetch href="/validators">
-									<button class="btn btn-secondary">Find a validator to delegate</button>
+									<button class="btn btn-secondary rounded-xl"
+										>Choose a validator to delegate</button
+									>
 								</a>
 							</div>
 						{/if}

@@ -106,3 +106,19 @@ export const reconnectToWallet = async (config: ClientGlobalConfig) => {
 		});
 	}
 };
+
+export const updateAccountBalance = async () => {
+	const store = get(walletConnectionStore);
+	if (store.connectedWallet) {
+		const address = store.connectedWallet.addr as `ak_${string}`;
+		const balAETTO = await store.sdk?.getBalance(address, { format: AE_AMOUNT_FORMATS.AETTOS });
+		if (balAETTO) {
+			walletConnectionStore.update((s) => {
+				if (s.connectedWallet) {
+					s.connectedWallet.balAETTO = BigInt(balAETTO);
+				}
+				return s;
+			});
+		}
+	}
+};

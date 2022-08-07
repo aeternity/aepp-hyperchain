@@ -9,10 +9,10 @@
 	export let withBorder = true;
 	export let wallet: Wallet;
 	export let config: ClientGlobalConfig;
-	let sdk = $walletConnectionStore.sdk;
-	let sameNetwork = wallet.info.networkId === config.networkId;
-	let conn = $walletConnectionStore.connectedWallet;
-	let connectedToWallet =
+	$: sdk = $walletConnectionStore.sdk;
+	$: sameNetwork = wallet.info.networkId === config.networkId;
+	$: conn = $walletConnectionStore.connectedWallet;
+	$: connectedToWallet =
 		conn &&
 		wallet.info.origin === conn.w.info.origin &&
 		wallet.info.networkId === conn.w.info.networkId;

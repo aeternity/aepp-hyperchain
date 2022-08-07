@@ -38,7 +38,10 @@
 		}}
 	>
 		{#if $walletConnectionStore.scanning}
-			Scanning for wallets...
+			<div
+				class="radial-progress animate-spin text-secondary-content"
+				style="--value:25; --size: 2rem"
+			/>
 		{:else}
 			{conn?.addr
 				? conn.addr.slice(0, 8) + '...' + conn.addr.slice(conn.addr.length - 8)

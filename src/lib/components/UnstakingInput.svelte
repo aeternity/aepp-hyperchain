@@ -23,55 +23,68 @@
 	$: outsideRange = shares < 0n || shares > sharesInValidator;
 	$: remainderBelowMinStake = remainderValue < $minStakeAetto && remainder != 0n;
 	$: btnDisabled = outsideRange || remainderBelowMinStake || !validatorDesc;
+
+	let callState: 'input' | 'calling' | { code: string; amount: bigint } = 'input';
 </script>
 
 <div class="space-y-4">
-	<div class="form-control font-bold text-secondary">
-		<div>
-			shares to unstake:
-			<label class="label">
-				<input
-					type="number"
-					value={shares}
-					class="input input-bordered w-full"
-					on:input={(e) => (shares = BigInt(e.target.value))}
-				/>
-			</label>
+	{#if callState === 'input'}
+		<div class="form-control font-bold text-secondary">
+			<div>
+				shares to unstake:
+				<label class="label">
+					<input
+						type="number"
+						value={shares}
+						class="input input-bordered w-full"
+						on:input={(e) => (shares = BigInt(e.target.value))}
+					/>
+				</label>
+			</div>
+			<div>Approximate value: <AeAmount aetto={sharesValue} /></div>
+			<div>Remainder: {remainder} shares</div>
+			<div>Remainder Value: <AeAmount aetto={remainderValue} /></div>
 		</div>
-		<div>Approximate value: <AeAmount aetto={sharesValue} /></div>
-		<div>Remainder: {remainder} shares</div>
-		<div>Remainder Value: <AeAmount aetto={remainderValue} /></div>
-	</div>
-	<AmountSlider
-		amount={shares}
-		max={sharesInValidator}
-		color="secondary"
-		onChange={(a) => (shares = a)}
-	/>
-	<div class="flex justify-center  prose p-0 m-0 font-bold text-secondary">
-		&nbsp;
-		{#if outsideRange}
-			Amount is outside of allowed range
-		{:else if remainderBelowMinStake}
-			Remainder is below the minimum stake
-		{:else if !validatorDesc}
-			Validator address not known (should not happen)
-		{/if}
-	</div>
-	<div class="flex  justify-end">
-		<button
-			class="btn btn-secondary w-56 {btnDisabled && 'btn-disabled'}"
-			on:click={async () => {
-				const stakingContract = await sdk.getContractInstance({
-					aci: stakingContractACI,
-					contractAddress: stakingContrAddr
-				});
-				const ret = await stakingContract.methods.unstake(validatorDesc?.ak, shares);
-				console.log('unstaking result', ret);
-				const returnCode = ret.result.returnType;
-				console.log('return code:', returnCode);
-			}}
-			>unstake
-		</button>
-	</div>
+		<AmountSlider
+			amount={shares}
+			max={sharesInValidator}
+			color="secondary"
+			onChange={(a) => (shares = a)}
+		/>
+		<div class="flex justify-center  prose p-0 m-0 font-bold text-secondary">
+			&nbsp;
+			{#if outsideRange}
+				Amount is outside of allowed range
+			{:else if remainderBelowMinStake}
+				Remainder is below the minimum stake
+			{:else if !validatorDesc}
+				Validator address not known (should not happen)
+			{/if}
+		</div>
+		<div class="flex  justify-end">
+			<button
+				class="btn btn-secondary w-56 {btnDisabled && 'btn-disabled'}"
+				on:click={async () => {
+					callState = 'calling';
+					const stakingContract = await sdk.getContractInstance({
+						aci: stakingContractACI,
+						contractAddress: stakingContrAddr
+					});
+					const ret = await stakingContract.methods.unstake(validatorDesc?.ak, shares);
+					console.log('unstaking result', ret);
+					callState = { code: ret.result.returnType, amount: ret.decodedResult };
+				}}
+				>unstake
+			</button>
+		</div>
+	{:else if callState === 'calling'}
+		<div class="flex justify-center items-center">
+			<div class="radial-progress animate-spin text-secondary" style="--value:25; --size: 6rem" />
+		</div>
+	{:else}
+		<div class="alert alert-info">
+			<p>Return code: {callState.code}</p>
+			<p>Return value: {callState.amount}</p>
+		</div>
+	{/if}
 </div>

@@ -2,7 +2,7 @@
 	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
 	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import AeAmount from './CoinAmount.svelte';
+	import CoinAmount from './CoinAmount.svelte';
 	import stakingContractACI from '$lib/aesdk/stakingContractACI';
 	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
@@ -26,55 +26,73 @@
 	const changeVal = (aeNew: number) => {
 		aetto = BigInt(toAettos(aeNew, { denomination: AE_AMOUNT_FORMATS.AE }));
 	};
+
+	let callState: 'input' | 'calling' | { code: string; amount: bigint } = 'input';
 </script>
 
 <div class="space-y-4">
-	<div class="form-control font-bold text-primary">
-		<div>
-			HCsats amount:
-			<label class="label">
-				<input type="number" bind:value={aetto} class="input input-bordered w-full" />
-			</label>
+	{#if callState === 'input'}
+		<div class="form-control font-bold text-primary">
+			<div>
+				HCsats amount:
+				<label class="label">
+					<input type="number" bind:value={aetto} class="input input-bordered w-full" />
+				</label>
+			</div>
+			<div>
+				HCcoin amount:
+				<label class="label">
+					<input
+						type="number"
+						value={ae}
+						class="input input-bordered  w-full"
+						on:input={(e) => changeVal(e.target.value)}
+					/>
+				</label>
+			</div>
 		</div>
-		<div>
-			HCcoin amount:
-			<label class="label">
-				<input
-					type="number"
-					value={ae}
-					class="input input-bordered  w-full"
-					on:input={(e) => changeVal(e.target.value)}
-				/>
-			</label>
+		<AmountSlider
+			amount={aetto}
+			max={aettoAvailable}
+			color="primary"
+			onChange={(a) => (aetto = a)}
+		/>
+		<div class="flex justify-center  prose p-0 m-0 font-bold text-primary">
+			&nbsp;
+			{#if outsideRange}
+				Amount is outside of allowed range
+			{:else if spendingAllAe}
+				Trying to spend all AE
+			{:else if belowMinStake}
+				Amount is below the minimum stake
+			{:else if !validatorDesc}
+				Validator address not known (should not happen)
+			{/if}
 		</div>
-	</div>
-	<AmountSlider amount={aetto} max={aettoAvailable} color="primary" onChange={(a) => (aetto = a)} />
-	<div class="flex justify-center  prose p-0 m-0 font-bold text-primary">
-		&nbsp;
-		{#if outsideRange}
-			Amount is outside of allowed range
-		{:else if spendingAllAe}
-			Trying to spend all AE
-		{:else if belowMinStake}
-			Amount is below the minimum stake
-		{:else if !validatorDesc}
-			Validator address not known (should not happen)
-		{/if}
-	</div>
-	<div class="flex  justify-end">
-		<button
-			class="btn btn-primary w-56 {btnDisabled && 'btn-disabled'}"
-			on:click={async () => {
-				const stakingContract = await sdk.getContractInstance({
-					aci: stakingContractACI,
-					contractAddress: stakingContrAddr
-				});
-				const ret = await stakingContract.methods.stake(validatorDesc?.ak, { amount: aetto });
-				console.log('staking result', ret);
-				const returnCode = ret.result.returnType;
-				console.log('return code:', returnCode);
-			}}
-			>stake
-		</button>
-	</div>
+		<div class="flex  justify-end">
+			<button
+				class="btn btn-primary w-56 {btnDisabled && 'btn-disabled'}"
+				on:click={async () => {
+					callState = 'calling';
+					const stakingContract = await sdk.getContractInstance({
+						aci: stakingContractACI,
+						contractAddress: stakingContrAddr
+					});
+					const ret = await stakingContract.methods.stake(validatorDesc?.ak, { amount: aetto });
+					console.log('staking result', ret);
+					callState = { code: ret.result.returnType, amount: ret.decodedResult.toString() };
+				}}
+				>stake
+			</button>
+		</div>
+	{:else if callState === 'calling'}
+		<div class="flex justify-center items-center">
+			<div class="radial-progress animate-spin text-primary" style="--value:25; --size: 6rem" />
+		</div>
+	{:else}
+		<div class="alert alert-info">
+			<p>Return code: {callState.code}</p>
+			<p>Return value: {callState.amount}</p>
+		</div>
+	{/if}
 </div>

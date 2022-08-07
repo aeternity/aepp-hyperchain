@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getAddrShares, Validator } from '../aesdk/contractState';
 	import { sharesToAetto } from '../aesdk/contractState.js';
-	import AeAmount from './CoinAmount.svelte';
+	import CoinAmount from './CoinAmount.svelte';
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
 	import StakingInput from './StakingInput.svelte';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
@@ -23,7 +23,7 @@
 		<div class="card-body">
 			<p>
 				<span class="text-secondary font-bold">{myShares} shares</span>,
-				<AeAmount aetto={aettoStaked} />
+				<CoinAmount aetto={aettoStaked} />
 			</p>
 		</div>
 		<div class="card-actions justify-end">
@@ -53,10 +53,10 @@
 						<p>
 							Your stake with {validator.state.name}:
 							<span class="text-secondary font-bold">{myShares} shares</span>,
-							<AeAmount aetto={aettoStaked} />
+							<CoinAmount aetto={aettoStaked} />
 						</p>
-						<p>Available in wallet: <AeAmount aetto={wallet.balAETTO} /></p>
-						<p>Min Stake: <AeAmount aetto={$minStakeAetto} /></p>
+						<p>Available in wallet: <CoinAmount aetto={wallet.balAETTO} /></p>
+						<p>Min Stake: <CoinAmount aetto={$minStakeAetto} /></p>
 					</div>
 					{#if modalOpen === 'staking'}
 						<StakingInput aettoAvailable={wallet.balAETTO} {validator} />

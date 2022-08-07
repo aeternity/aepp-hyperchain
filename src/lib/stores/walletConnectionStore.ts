@@ -60,11 +60,7 @@ export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
 		}
 		window.localStorage.setItem(WALLET_INFO_KEY, JSON.stringify(wallet.info));
 		s.connectedWallet = { w: wallet, addr: address, balAETTO: BigInt(balAETTO) };
-		s.detectorDisconnect = null;
-		s.walletsFound = [];
-		s.sdk = sdk;
-		s.scanning = false;
-		return s;
+		return { ...s, scanning: false, sdk, detectorDisconnect: null, walletsFound: [] };
 	});
 	walletConnectModalOpen.set(false);
 	return sdk;
@@ -106,8 +102,7 @@ export const reconnectToWallet = async (config: ClientGlobalConfig) => {
 			}
 		});
 		walletConnectionStore.update((s) => {
-			s.detectorDisconnect = detectorDisconnect;
-			return s;
+			return { ...s, detectorDisconnect };
 		});
 	}
 };

@@ -2,12 +2,18 @@
 	import { getAddrShares, totalStakedForAddr } from '$lib/aesdk/contractState';
 
 	import CoinAmount from '$lib/components/CoinAmount.svelte';
+	import NavBarLink from '$lib/components/NavBarLink.svelte';
 	import StakingCard from '$lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import { state } from '@aeternity/aepp-sdk/es/channel/internal';
+	import Validators from './validators.svelte';
 	$: wallet = $walletConnectionStore.connectedWallet;
-	$: validators = $validatorsStore;
+	$: vs = $validatorsStore;
+	$: myValidators = vs
+		? vs.validators.filter((v) => (wallet ? getAddrShares(v, wallet.addr) : false))
+		: [];
+	$: myTotalStake = wallet && vs ? totalStakedForAddr(vs, wallet.addr) : 0n;
 </script>
 
 <div class="container content-center border items-center">
@@ -19,17 +25,19 @@
 					Available in wallet: <CoinAmount aetto={wallet.balAETTO} dropdownReverse />
 				</div>
 				<div class="space-y-2">
-					{#if validators}
+					{#if vs}
 						<div class="alert border border-primary">
-							Total staked: <CoinAmount
-								aetto={totalStakedForAddr(validators, wallet.addr)}
-								dropdownReverse
-							/>
+							Total staked: <CoinAmount aetto={myTotalStake} dropdownReverse />
 						</div>
-						{#each validators.validators as val (val.ct)}
-							{#if getAddrShares(val, wallet.addr)}
-								<StakingCard validator={val} />
-							{/if}
+						{#if !myValidators?.length}
+							<div>
+								<a sveltekit:prefetch href="/validators">
+									<button class="btn btn-secondary">Find a validator to delegate</button>
+								</a>
+							</div>
+						{/if}
+						{#each myValidators as val (val.ct)}
+							<StakingCard validator={val} />
 						{/each}
 					{:else}
 						Fetching validators state...

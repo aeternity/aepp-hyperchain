@@ -1,10 +1,18 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
 /** @type {import('vite').UserConfig} */
-const config = {
-	plugins: [sveltekit()],
-	optimizeDeps: { esbuildOptions: { target: ['es2020'] } },
-	build: { target: ['es2020'] }
-};
-
-export default config;
+export default defineConfig(({ command, mode, ssrBuild }) => {
+	return {
+		plugins: [sveltekit({})],
+		experimental: { prebundleSvelteLibraries: true },
+		optimizeDeps: {
+			esbuildOptions: { target: ['es2021'] }
+		},
+		build: { target: ['es2020'], sourcemap: true },
+		ssr: {
+			noExternal:
+				command === 'serve' ? [] : ['@aeternity/aepp-sdk', '@fortawesome/free-solid-svg-icons']
+		}
+	};
+});

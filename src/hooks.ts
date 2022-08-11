@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import type { GetSession, Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 import { configServer, type ServerConfig } from './lib/serverConfig';
 import type { ContractStateWithTimestamp } from './lib/aesdk/contractState';
@@ -14,12 +14,18 @@ let serverConfig: ServerConfig | null = null;
 let validatorsState: ContractStateWithTimestamp | null = null;
 
 export const handle: Handle = async ({ event, resolve }) => {
-	if (!serverConfig) {
-		console.log('Configuring server...');
-		serverConfig = await configServer();
+	// console.log('url', event.url.pathname);
+	if (event.url.pathname === '/alive') {
+		return resolve(event);
 	}
 	if (!serverConfig) {
-		throw new Error('Server not configured properly. serverConfig object is null');
+		console.log('Configuring server...');
+		try {
+			serverConfig = await configServer();
+		} catch (err) {
+			console.error('Error configuring server', err);
+			return new Response(`Error ${err}`, { status: 500 });
+		}
 	}
 	event.locals.serverConfig = serverConfig;
 
@@ -28,12 +34,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const contractState = await getContractState(serverConfig.sdkInstance);
 		validatorsState = { st: contractState, ts: unixTime() };
 	}
-	if (!validatorsState) {
-		throw new Error('Validators state is null!');
-	}
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);
 };
+
+// export const handleError: HandleError = ({ error, event }) => {
+// 	console.log('error', error);
+// };
 
 // export const getSession: GetSession = async (event) => {
 // 	event

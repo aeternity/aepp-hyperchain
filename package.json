@@ -33,8 +33,6 @@
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"human-readable": "^0.2.1",
-		"json-bigint": "^1.0.0",
 		"postcss": "^8.4.16",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.7.0",
@@ -47,12 +45,14 @@
 		"tslib": "^2.4.0",
 		"typeface-roboto": "^1.1.13",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.4",
-		"zod": "^3.17.10"
+		"vite": "^3.0.4"
 	},
 	"type": "module",
 	"dependencies": {
-		"@aeternity/aepp-sdk": "github:aeternity/aepp-sdk-js#feature/ceres",
-		"dotenv": "^16.0.1"
+		"@aeternity/aepp-sdk": "loxs/aepp-sdk-js#feature/ceres",
+		"dotenv": "^16.0.1",
+		"zod": "^3.17.10",
+		"human-readable": "^0.2.1",
+		"json-bigint": "^1.0.0"
 	}
 }

@@ -15,6 +15,7 @@ export const mkSdkInstance = async (
 	stakingContractAddress: string
 ): Promise<SdkInstance> => {
 	const keypair = generateKeyPair();
+	// console.log('keypair', keypair);
 	const senderAccount = new MemoryAccount({ keypair });
 	const node = new Node(nodeUrl, { ignoreVersion: true });
 	const aeSdk = new AeSdk({

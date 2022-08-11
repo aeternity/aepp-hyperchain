@@ -55,7 +55,7 @@ export const configServer = async (): Promise<ServerConfig> => {
 const getEnvVar = (varName: string): string => {
 	const envVar = process.env[varName];
 	if (!envVar) {
-		throw new Error(`${varName} required in .env`);
+		throw new Error(`${varName} environment variable required`);
 	}
 	return envVar;
 };

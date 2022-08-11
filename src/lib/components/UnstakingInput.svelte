@@ -31,7 +31,7 @@
 	{#if callState === 'input'}
 		<div class="form-control font-bold text-secondary">
 			<div>
-				shares to unstake:
+				Shares to unstake:
 				<label class="label">
 					<input
 						type="number"

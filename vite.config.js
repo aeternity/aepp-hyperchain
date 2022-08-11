@@ -12,7 +12,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 		build: { target: ['es2020'], sourcemap: true },
 		ssr: {
 			noExternal:
-				command === 'serve' ? [] : ['@aeternity/aepp-sdk', '@fortawesome/free-solid-svg-icons']
+				command === 'serve'
+					? []
+					: ['@aeternity/aepp-sdk', '@fortawesome/free-solid-svg-icons', 'dotenv']
 		}
 	};
 });

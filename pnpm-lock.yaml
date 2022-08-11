@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@aeternity/aepp-sdk': github:aeternity/aepp-sdk-js#feature/ceres
+  '@aeternity/aepp-sdk': loxs/aepp-sdk-js#feature/ceres
   '@fortawesome/free-brands-svg-icons': ^6.1.2
   '@fortawesome/free-solid-svg-icons': ^6.1.2
   '@originjs/vite-plugin-commonjs': ^1.0.3
@@ -40,8 +40,11 @@ specifiers:
   zod: ^3.17.10
 
 dependencies:
-  '@aeternity/aepp-sdk': github.com/aeternity/aepp-sdk-js/ec0e37d238bdf9a4ac9dbccf4ff991f27555012c
+  '@aeternity/aepp-sdk': github.com/loxs/aepp-sdk-js/9ad53a2493daaeb0bded1cc73549da48432c59c9
   dotenv: 16.0.1
+  human-readable: 0.2.1
+  json-bigint: 1.0.0
+  zod: 3.17.10
 
 devDependencies:
   '@fortawesome/free-brands-svg-icons': 6.1.2
@@ -63,8 +66,6 @@ devDependencies:
   eslint: 8.21.0
   eslint-config-prettier: 8.5.0_eslint@8.21.0
   eslint-plugin-svelte3: 4.0.0_a7wk4ghvg4hia4trwaglu7p6cq
-  human-readable: 0.2.1
-  json-bigint: 1.0.0
   postcss: 8.4.16
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
@@ -78,9 +79,18 @@ devDependencies:
   typeface-roboto: 1.1.13
   typescript: 4.7.4
   vite: 3.0.4
-  zod: 3.17.10
 
 packages:
+
+  /@aeternity/aepp-calldata/1.2.0:
+    resolution: {integrity: sha512-hrlT8B4I7clcGSypqT3ZAuuQbMjH3WD/xr4wnVoW6TrGZ7+0dk8xrgkx3yeZDeR5kGexwVq9Yqm/CGs9kfvOgQ==}
+    dependencies:
+      blakejs: 1.2.1
+      bs58: 4.0.1
+      rlp: 3.0.0
+      safe-buffer: 5.2.1
+      sha.js: 2.4.11
+    dev: false
 
   /@aeternity/argon2-browser/0.1.2:
     resolution: {integrity: sha512-nL3xZYf0JXVIm6HFyppXn9fgHjmSjYa1PBYXzD1/pLbECdikD+r3IuhIR3dAwn8nq9xShjHPr9ZnJUbbUvva4g==}
@@ -160,8 +170,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@babel/runtime-corejs3/7.18.6:
-    resolution: {integrity: sha512-cOu5wH2JFBgMjje+a+fz2JNIWU4GzYpl05oSob3UDvBEh6EuIn+TXFHMmBbhSb+k/4HMzgKCQfEEDArAWNF9Cw==}
+  /@babel/runtime-corejs3/7.18.9:
+    resolution: {integrity: sha512-qZEWeccZCrHA2Au4/X05QW5CMdm4VjUDCrGq5gf1ZDcM4hRqreKrtwAn7yci9zfgAS9apvnsFXiGBHBAxZdK9A==}
     engines: {node: '>=6.9.0'}
     dependencies:
       core-js-pure: 3.23.4
@@ -379,9 +389,16 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
+  /@types/aes-js/3.1.1:
+    resolution: {integrity: sha512-SDSGgXT3LRCH6qMWk8OHT1vLSVNuHNvCpKCx2/TYtQMbMGGgxJC9fspwSkQjqzRagrWnCrxuLL3jMNXLXHHvSw==}
+    dev: false
+
+  /@types/argon2-browser/1.18.1:
+    resolution: {integrity: sha512-PZffP/CqH9m2kovDSRQMfMMxUC3V98I7i7/caa0RB0/nvsXzYbL9bKyqZpNMFmLFGZslROlG1R60ONt7abrwlA==}
+    dev: false
+
   /@types/json-bigint/1.0.1:
     resolution: {integrity: sha512-zpchZLNsNuzJHi6v64UBoFWAvQlPhch7XAi36FkH6tL1bbbmimIF+cS7vwkzY4u5RaSWMoflQfu+TshMPPw8uw==}
-    dev: true
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
@@ -389,7 +406,6 @@ packages:
 
   /@types/node/18.6.5:
     resolution: {integrity: sha512-Xjt5ZGUa5WusGZJ4WJPbOT8QOqp6nDynVFRKcUt32bOgvXEoc6o085WNkYTMO7ifAj2isEfQQ2cseE+wT6jsRw==}
-    dev: true
 
   /@types/pug/2.0.6:
     resolution: {integrity: sha512-SnHmG9wN1UVmagJOnyo/qkk0Z7gejYxOYYmaAwr5u2yFYfsupN3sg10kyzN8Hep/2zbHxCnsumxOoRIRMBwKCg==}
@@ -400,6 +416,26 @@ packages:
     dependencies:
       '@types/node': 18.6.5
     dev: true
+
+  /@types/sha.js/2.4.0:
+    resolution: {integrity: sha512-amxKgPy6WJTKuw8mpUwjX2BSxuBtBmZfRwIUDIuPJKNwGN8CWDli8JTg5ONTWOtcTkHIstvT7oAhhYXqEjStHQ==}
+    dependencies:
+      '@types/node': 18.6.5
+    dev: false
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+    dev: false
+
+  /@types/webextension-polyfill/0.9.0:
+    resolution: {integrity: sha512-HG1y1o2hK8ag6Y7dfkrAbfKmMIP+B0E6SwAzUfmQ1dDxEIdLTtMyrStY26suHBPrAL7Xw/chlDW02ugc3uXWtQ==}
+    dev: false
+
+  /@types/websocket/1.0.5:
+    resolution: {integrity: sha512-NbsqiNX9CnEfC1Z0Vf4mE1SgAJ07JnRYcNex7AJ9zAVzmiGHmjKFEk7O4TJIsgv2B1sLEb6owKFZrACwdYngsQ==}
+    dependencies:
+      '@types/node': 18.6.5
+    dev: false
 
   /@typescript-eslint/eslint-plugin/5.33.0_njno5y7ry2l2lcmiu4tywxkwnq:
     resolution: {integrity: sha512-jHvZNSW2WZ31OPJ3enhLrEKvAZNyAFWZ6rx9tUwaessTc4sx9KmgMNhVcqVAl1ETnT5rU5fpXTLmY9YvC1DCNg==}
@@ -682,6 +718,7 @@ packages:
 
   /bignumber.js/9.0.2:
     resolution: {integrity: sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw==}
+    dev: false
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -1576,7 +1613,7 @@ packages:
 
   /human-readable/0.2.1:
     resolution: {integrity: sha512-uFtz4WZlB1M5xI45MZ5AjyAzfrrgLOdty4363Jd0LQ5NGXa+UiKaD0EQXQeDfCinodrpePFk/vKjzBlDTZdZQQ==}
-    dev: true
+    dev: false
 
   /ieee754/1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -1663,6 +1700,7 @@ packages:
     resolution: {integrity: sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==}
     dependencies:
       bignumber.js: 9.0.2
+    dev: false
 
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -2583,33 +2621,28 @@ packages:
 
   /zod/3.17.10:
     resolution: {integrity: sha512-IHXnQYQuOOOL/XgHhgl8YjNxBHi3xX0mVcHmqsvJgcxKkEczPshoWdxqyFwsARpf41E0v9U95WUROqsHHxt0UQ==}
-    dev: true
-
-  github.com/aeternity/aepp-calldata-js/03b52720e3d7973cea0144eae1cd11b31639e908:
-    resolution: {tarball: https://codeload.github.com/aeternity/aepp-calldata-js/tar.gz/03b52720e3d7973cea0144eae1cd11b31639e908}
-    name: '@aeternity/aepp-calldata'
-    version: 1.1.1
-    dependencies:
-      blakejs: 1.2.1
-      bs58: 4.0.1
-      rlp: 3.0.0
-      safe-buffer: 5.2.1
-      sha.js: 2.4.11
     dev: false
 
-  github.com/aeternity/aepp-sdk-js/ec0e37d238bdf9a4ac9dbccf4ff991f27555012c:
-    resolution: {tarball: https://codeload.github.com/aeternity/aepp-sdk-js/tar.gz/ec0e37d238bdf9a4ac9dbccf4ff991f27555012c}
+  github.com/loxs/aepp-sdk-js/9ad53a2493daaeb0bded1cc73549da48432c59c9:
+    resolution: {tarball: https://codeload.github.com/loxs/aepp-sdk-js/tar.gz/9ad53a2493daaeb0bded1cc73549da48432c59c9}
     name: '@aeternity/aepp-sdk'
-    version: 12.0.0
+    version: 12.1.2
     prepare: true
     requiresBuild: true
     dependencies:
-      '@aeternity/aepp-calldata': github.com/aeternity/aepp-calldata-js/03b52720e3d7973cea0144eae1cd11b31639e908
+      '@aeternity/aepp-calldata': 1.2.0
       '@aeternity/argon2-browser': 0.1.2
       '@aeternity/uuid': 0.0.1
       '@azure/core-client': 1.6.0
       '@azure/core-rest-pipeline': 1.9.0
-      '@babel/runtime-corejs3': 7.18.6
+      '@babel/runtime-corejs3': 7.18.9
+      '@types/aes-js': 3.1.1
+      '@types/argon2-browser': 1.18.1
+      '@types/json-bigint': 1.0.1
+      '@types/sha.js': 2.4.0
+      '@types/uuid': 8.3.4
+      '@types/webextension-polyfill': 0.9.0
+      '@types/websocket': 1.0.5
       aes-js: 3.1.2
       bignumber.js: 9.0.2
       bip32-path: 0.4.2

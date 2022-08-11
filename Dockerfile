@@ -22,4 +22,4 @@ COPY pnpm-lock.yaml .
 RUN pnpm install --prod
 COPY --from=base /app/build /app/build
 EXPOSE 3000
-CMD ["node" "build/index.js"]
+CMD [ "node", "build/index.js" ]

@@ -1,12 +1,6 @@
 import type { SdkInstance } from './aesdk/serverAeSdk';
 import { mkSdkInstance } from './aesdk/serverAeSdk';
 
-export interface ValidatorDesc {
-	ak: string;
-	ct: string;
-	name: string;
-}
-
 export interface ServerConfig {
 	aeNodeURL: string;
 	networkId: string;
@@ -16,26 +10,7 @@ export interface ServerConfig {
 	hcElectionContract: string;
 	sdkInstance: SdkInstance;
 	// TODO, fix this to get fetched from the contract once it gets updated (remove this data structure from here)
-	hardcodedValidatorsMapping: ValidatorDesc[];
 }
-
-const hardcodedValidatorsMapping: ServerConfig['hardcodedValidatorsMapping'] = [
-	{
-		name: 'Bob',
-		ak: 'ak_nQpnNuBPQwibGpSJmjAah6r3ktAB7pG9JHuaGWHgLKxaKqEvC',
-		ct: 'ct_2LQ8WUFCb8hQiu7PpdbfNEmphqMhK8Eu8YaRTvEimoKzz4CfSN'
-	},
-	{
-		name: 'Alice',
-		ak: 'ak_2MGLPW2CHTDXJhqFJezqSwYSNwbZokSKkG7wSbGtVmeyjGfHtm',
-		ct: 'ct_xZDAkM8rJNUVb7EkD9QUMniVJ3y521dqAziVerxER58QkFy6B'
-	}
-];
-export const getValidatorByAk = (ak: string): ValidatorDesc | undefined =>
-	hardcodedValidatorsMapping.find((v) => v.ak === ak);
-
-export const getValidatorByCt = (ct: string): ValidatorDesc | undefined =>
-	hardcodedValidatorsMapping.find((v) => v.ct == ct);
 
 export const configServer = async (): Promise<ServerConfig> => {
 	const aeNodeURL = getEnvVar('AE_NODE_URL');
@@ -50,8 +25,7 @@ export const configServer = async (): Promise<ServerConfig> => {
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,
 		hcElectionContract,
-		sdkInstance,
-		hardcodedValidatorsMapping
+		sdkInstance
 	};
 };
 

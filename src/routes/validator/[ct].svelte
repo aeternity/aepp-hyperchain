@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { page } from '$app/stores';
-	import { getAddrShares, MainStakingState } from '../../lib/aesdk/contractState';
+	import {
+		ContractState,
+		getAddrShares,
+		getValidatorByAk,
+		getValidatorByCt,
+		MainStakingState
+	} from '../../lib/aesdk/contractState';
 	import { fromJSON } from '../../lib/utils';
 	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
-	import { getValidatorByAk, getValidatorByCt } from '../../lib/serverConfig';
 	import AeAmount from '../../lib/components/CoinAmount.svelte';
 	import { walletConnectionStore } from '../../lib/stores/walletConnectionStore';
 	import { sharesToAetto } from '../../lib/aesdk/contractState.js';
@@ -15,9 +20,9 @@
 	const ct: string = $page.params['ct'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : MainStakingState.parse(fromJSON(state));
-	$: currentLeader = getValidatorByAk(stDecoded.leader);
-	$: validator = stDecoded.validators.find((v) => v.ct == ct);
+	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
+	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.leader);
+	$: validator = stDecoded.st.validators.find((v) => v.ct == ct);
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">

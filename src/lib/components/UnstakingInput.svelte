@@ -1,20 +1,16 @@
 <script lang="ts">
-	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
-	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import AeAmount from './CoinAmount.svelte';
 	import stakingContractACI from '$lib/aesdk/MainStakingACI';
-	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
+	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import { sharesToAetto, type Validator } from '../aesdk/contractState';
-	import { getValidatorByCt } from '$lib/serverConfig';
 	import AmountSlider from './AmountSlider.svelte';
 
-	export let sharesInValidator: bigint = 0n;
+	export let sharesInValidator = 0n;
 	export let validator: Validator;
 
 	$: sdk = $walletConnectionStore.sdk!;
-	$: stakingContrAddr = $clientGlobalConfigStore?.stakingContract!;
-	$: validatorDesc = getValidatorByCt(validator.ct);
+	$: stakingContrAddr = $clientGlobalConfigStore?.stakingContract;
 
 	$: shares = 0n;
 	$: remainder = sharesInValidator - shares;
@@ -22,7 +18,7 @@
 	$: remainderValue = sharesToAetto(validator, remainder);
 	$: outsideRange = shares < 0n || shares > sharesInValidator;
 	$: remainderBelowMinStake = remainderValue < $minStakeAetto && remainder != 0n;
-	$: btnDisabled = outsideRange || remainderBelowMinStake || !validatorDesc;
+	$: btnDisabled = outsideRange || remainderBelowMinStake;
 
 	let callState: 'input' | 'calling' | { code: string; amount: bigint } = 'input';
 </script>
@@ -57,8 +53,6 @@
 				Amount is outside of allowed range
 			{:else if remainderBelowMinStake}
 				Remainder is below the minimum stake
-			{:else if !validatorDesc}
-				Validator address not known (should not happen)
 			{/if}
 		</div>
 		<div class="flex  justify-end">
@@ -70,7 +64,7 @@
 						aci: stakingContractACI,
 						contractAddress: stakingContrAddr
 					});
-					const ret = await stakingContract.methods.unstake(validatorDesc?.ak, shares);
+					const ret = await stakingContract.methods.unstake(validator?.address, shares);
 					console.log('unstaking result', ret);
 					callState = { code: ret.result.returnType, amount: ret.decodedResult };
 				}}

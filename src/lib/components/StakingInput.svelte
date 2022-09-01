@@ -6,8 +6,8 @@
 	import stakingContractACI from '$lib/aesdk/MainStakingACI';
 	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
-	import { getValidatorByCt } from '$lib/serverConfig';
 	import AmountSlider from './AmountSlider.svelte';
+	import { getValidatorByCt } from '../aesdk/contractState';
 
 	export let aettoAvailable: bigint = 0n;
 	export let validator: Validator;
@@ -15,13 +15,12 @@
 	$: sdk = $walletConnectionStore.sdk!;
 	$: stakingContrAddr = $clientGlobalConfigStore?.stakingContract!;
 
-	$: validatorDesc = getValidatorByCt(validator.ct);
 	$: aetto = 0n;
 	$: ae = parseFloat(toAe(aetto as any));
 	$: outsideRange = aetto < 0n || aetto > aettoAvailable;
 	$: spendingAllAe = aetto === aettoAvailable;
 	$: belowMinStake = aetto < $minStakeAetto;
-	$: btnDisabled = outsideRange || spendingAllAe || belowMinStake || !validatorDesc;
+	$: btnDisabled = outsideRange || spendingAllAe || belowMinStake;
 
 	const changeVal = (aeNew: number) => {
 		aetto = BigInt(toAettos(aeNew, { denomination: AE_AMOUNT_FORMATS.AE }));
@@ -65,8 +64,6 @@
 				Trying to spend all AE
 			{:else if belowMinStake}
 				Amount is below the minimum stake
-			{:else if !validatorDesc}
-				Validator address not known (should not happen)
 			{/if}
 		</div>
 		<div class="flex  justify-end">
@@ -78,7 +75,7 @@
 						aci: stakingContractACI,
 						contractAddress: stakingContrAddr
 					});
-					const ret = await stakingContract.methods.stake(validatorDesc?.ak, { amount: aetto });
+					const ret = await stakingContract.methods.stake(validator?.address, { amount: aetto });
 					console.log('staking result', ret);
 					callState = { code: ret.result.returnType, amount: ret.decodedResult.toString() };
 				}}

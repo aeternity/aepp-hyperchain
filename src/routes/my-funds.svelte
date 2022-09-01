@@ -11,9 +11,9 @@
 	$: wallet = $walletConnectionStore.connectedWallet;
 	$: vs = $validatorsStore;
 	$: myValidators = vs
-		? vs.validators.filter((v) => (wallet ? getAddrShares(v, wallet.addr) : false))
+		? vs.st.validators.filter((v) => (wallet ? getAddrShares(v, wallet.addr) : false))
 		: [];
-	$: myTotalStake = wallet && vs ? totalStakedForAddr(vs, wallet.addr) : 0n;
+	$: myTotalStake = wallet && vs ? totalStakedForAddr(vs.st, wallet.addr) : 0n;
 </script>
 
 <div class="container content-center border items-center">

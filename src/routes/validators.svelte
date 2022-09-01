@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { aettoToAe, fromJSON } from '../lib/utils';
-	import { MainStakingState } from '../lib/aesdk/contractState';
-	import { getValidatorByAk } from '../lib/serverConfig';
+	import { ContractState, getValidatorByAk, MainStakingState } from '../lib/aesdk/contractState';
 	import ValidatorCard from '$lib/components/ValidatorCard.svelte';
 	import AeAmount from '../lib/components/CoinAmount.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 
 	export var state: string;
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : MainStakingState.parse(fromJSON(state));
-	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.leader) : null;
+	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
+	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.st.validators, stDecoded.leader) : null;
 </script>
 
 {#if stDecoded}
@@ -21,16 +20,16 @@
 			<div class="p-4 card-body">
 				<div class="flex">
 					<span class="flex-auto"
-						>Total Stake In Validators: <AeAmount aetto={stDecoded.total_stake} /></span
+						>Total Stake In Validators: <AeAmount aetto={stDecoded.st.total_stake} /></span
 					>
 					<span class="flex-end">
-						Minimum Stake: <AeAmount aetto={stDecoded.stake_minimum} dropdownReverse />
+						Minimum Stake: <AeAmount aetto={stDecoded.st.stake_minimum} dropdownReverse />
 					</span>
 				</div>
 			</div>
 		</div>
 		<div class="p-4 space-y-4">
-			{#each stDecoded.validators as validator}
+			{#each stDecoded.st.validators as validator}
 				<ValidatorCard {validator} {currentLeader} displayStakingButton={true} />
 			{/each}
 		</div>

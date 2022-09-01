@@ -3,7 +3,7 @@
 	import { select_value } from 'svelte/internal';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import CoinAmount from './CoinAmount.svelte';
-	import stakingContractACI from '$lib/aesdk/stakingContractACI';
+	import stakingContractACI from '$lib/aesdk/MainStakingACI';
 	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
 	import { getValidatorByCt } from '$lib/serverConfig';

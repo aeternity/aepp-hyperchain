@@ -2,7 +2,7 @@ import { browser } from '$app/env';
 import type { Handle } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 import { configServer, type ServerConfig } from './lib/serverConfig';
-import type { ContractStateWithTimestamp } from './lib/aesdk/contractState';
+import type { ContractsState } from './lib/aesdk/contractState';
 import { getContractState } from './lib/aesdk/contractState';
 import { unixTime } from './lib/utils';
 
@@ -11,13 +11,14 @@ if (!browser) {
 }
 
 let serverConfig: ServerConfig | null = null;
-let validatorsState: ContractStateWithTimestamp | null = null;
+let validatorsState: ContractsState | null = null;
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// console.log('url', event.url.pathname);
 	if (event.url.pathname === '/alive') {
 		return resolve(event);
 	}
+	// console.log('serverConfig', serverConfig);
 	if (!serverConfig) {
 		console.log('Configuring server...');
 		try {
@@ -31,8 +32,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (!validatorsState?.ts || validatorsState.ts < unixTime() - 2) {
 		// console.log('Updating validators state...');
-		const contractState = await getContractState(serverConfig.sdkInstance);
-		validatorsState = { st: contractState, ts: unixTime() };
+		const [contractState, leader] = await getContractState(serverConfig.sdkInstance);
+		validatorsState = { st: contractState, leader, ts: unixTime() };
 	}
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);

@@ -1,6 +1,7 @@
 import { AeSdk, generateKeyPair, MemoryAccount, Node } from '@aeternity/aepp-sdk';
 import type { ContractInstance } from '@aeternity/aepp-sdk/es/contract/aci';
-import aci from './stakingContractACI';
+import msACI from './MainStakingACI';
+import hceACI from './HCElectionACI';
 
 export interface SdkInstance {
 	keypair: ReturnType<typeof generateKeyPair>;
@@ -8,11 +9,13 @@ export interface SdkInstance {
 	node: Node;
 	aeSdk: AeSdk;
 	stakingContract: ContractInstance;
+	hcElectionContract: ContractInstance;
 }
 
 export const mkSdkInstance = async (
 	nodeUrl: string,
-	stakingContractAddress: string
+	mainStakingAddress: string,
+	hcElectionAddress: string
 ): Promise<SdkInstance> => {
 	const keypair = generateKeyPair();
 	// console.log('keypair', keypair);
@@ -23,10 +26,15 @@ export const mkSdkInstance = async (
 	});
 	await aeSdk.addAccount(senderAccount, { select: true });
 	console.log('node url', nodeUrl);
-	console.log('staking address', stakingContractAddress);
+	console.log('staking address', mainStakingAddress);
 	const stakingContract = await aeSdk.getContractInstance({
-		aci: aci,
-		contractAddress: stakingContractAddress
+		aci: msACI,
+		contractAddress: mainStakingAddress
 	});
-	return { keypair, senderAccount, node, aeSdk, stakingContract };
+	const hcElectionContract = await aeSdk.getContractInstance({
+		aci: hceACI,
+		contractAddress: hcElectionAddress
+	});
+
+	return { keypair, senderAccount, node, aeSdk, stakingContract, hcElectionContract };
 };

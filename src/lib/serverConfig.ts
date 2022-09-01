@@ -13,6 +13,7 @@ export interface ServerConfig {
 	aeFaucetURL: string;
 	aeWalletURL: string;
 	stakingContract: string;
+	hcElectionContract: string;
 	sdkInstance: SdkInstance;
 	// TODO, fix this to get fetched from the contract once it gets updated (remove this data structure from here)
 	hardcodedValidatorsMapping: ValidatorDesc[];
@@ -39,7 +40,8 @@ export const getValidatorByCt = (ct: string): ValidatorDesc | undefined =>
 export const configServer = async (): Promise<ServerConfig> => {
 	const aeNodeURL = getEnvVar('AE_NODE_URL');
 	const stakingContract = getEnvVar('STAKING_CONTRACT');
-	const sdkInstance = await mkSdkInstance(aeNodeURL, stakingContract);
+	const hcElectionContract = getEnvVar('HC_ELECTION_CONTRACT');
+	const sdkInstance = await mkSdkInstance(aeNodeURL, stakingContract, hcElectionContract);
 	const networkId = await sdkInstance.aeSdk.getNetworkId();
 	return {
 		aeNodeURL,
@@ -47,12 +49,13 @@ export const configServer = async (): Promise<ServerConfig> => {
 		aeFaucetURL: getEnvVar('AE_FAUCET_URL'),
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,
+		hcElectionContract,
 		sdkInstance,
 		hardcodedValidatorsMapping
 	};
 };
 
-const getEnvVar = (varName: string): string => {
+export const getEnvVar = (varName: string): string => {
 	const envVar = process.env[varName];
 	if (!envVar) {
 		throw new Error(`${varName} environment variable required`);

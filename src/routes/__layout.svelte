@@ -32,10 +32,10 @@
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import stakingContractACI from '$lib/aesdk/stakingContractACI';
+	import stakingContractACI from '$lib/aesdk/MainStakingACI';
 	import { ContractError } from '@aeternity/aepp-sdk';
 	import { fromJSON } from '$lib/utils';
-	import { StateDecodedResult } from '$lib/aesdk/contractState';
+	import { MainStakingState } from '$lib/aesdk/contractState';
 	import { fetchValidatorsState } from '$lib/stores/validatorsSore';
 
 	export let config: ClientGlobalConfig;

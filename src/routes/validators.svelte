@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { aettoToAe, fromJSON } from '../lib/utils';
-	import { StateDecodedResult } from '../lib/aesdk/contractState';
+	import { MainStakingState } from '../lib/aesdk/contractState';
 	import { getValidatorByAk } from '../lib/serverConfig';
 	import ValidatorCard from '$lib/components/ValidatorCard.svelte';
 	import AeAmount from '../lib/components/CoinAmount.svelte';
@@ -9,7 +9,7 @@
 
 	export var state: string;
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : StateDecodedResult.parse(fromJSON(state));
+	$: stDecoded = stateFromStore ? stateFromStore : MainStakingState.parse(fromJSON(state));
 	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.leader) : null;
 </script>
 

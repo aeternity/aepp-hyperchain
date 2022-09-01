@@ -21,9 +21,8 @@
 				$walletConnectionStore.detectorDisconnect();
 			}
 			walletConnectionStore.update((s) => ({ ...s, detectorDisconnect: null, scanning: false }));
-
-			walletConnectModalOpen.set(false);
 		}
+		walletConnectModalOpen.set(false);
 	};
 </script>
 
@@ -49,13 +48,10 @@
 		{/if}
 	</button>
 
-	<div
-		class="modal {$walletConnectModalOpen && 'modal-open'}"
-		on:click={() => walletConnectModalOpen.set(false)}
-	>
+	<div class="modal {$walletConnectModalOpen && 'modal-open'}" on:click={closeScanner}>
 		<div class="modal-box max-w-5xl p-8" on:click|stopPropagation>
 			<button
-				on:click={() => walletConnectModalOpen.set(false)}
+				on:click={closeScanner}
 				class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"
 				>✕
 			</button>

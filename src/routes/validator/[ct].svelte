@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { page } from '$app/stores';
-	import { getAddrShares, StateDecodedResult } from '../../lib/aesdk/contractState';
+	import { getAddrShares, MainStakingState } from '../../lib/aesdk/contractState';
 	import { fromJSON } from '../../lib/utils';
 	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
 	import { getValidatorByAk, getValidatorByCt } from '../../lib/serverConfig';
@@ -15,7 +15,7 @@
 	const ct: string = $page.params['ct'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : StateDecodedResult.parse(fromJSON(state));
+	$: stDecoded = stateFromStore ? stateFromStore : MainStakingState.parse(fromJSON(state));
 	$: currentLeader = getValidatorByAk(stDecoded.leader);
 	$: validator = stDecoded.validators.find((v) => v.ct == ct);
 </script>

@@ -6,12 +6,28 @@ import type { ContractsState } from './lib/aesdk/contractState';
 import { getContractState } from './lib/aesdk/contractState';
 import { unixTime } from './lib/utils';
 
-if (!browser) {
-	dotenv.config();
-}
-
 let serverConfig: ServerConfig | null = null;
 let validatorsState: ContractsState | null = null;
+
+async function updateState() {
+	if (!serverConfig) {
+		console.log('Configuring server...');
+		serverConfig = await configServer();
+	}
+	const [contractState, leader] = await getContractState(serverConfig.sdkInstance);
+	validatorsState = { st: contractState, leader, ts: BigInt(unixTime()) };
+}
+
+async function updateStateRepeatedly() {
+	// console.log('updating state...');
+	await updateState();
+	setTimeout(updateStateRepeatedly, 5000);
+}
+
+if (!browser) {
+	dotenv.config();
+	updateStateRepeatedly();
+}
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// console.log('url', event.url.pathname);
@@ -20,7 +36,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	// console.log('serverConfig', serverConfig);
 	if (!serverConfig) {
-		console.log('Configuring server...');
 		try {
 			serverConfig = await configServer();
 		} catch (err) {
@@ -28,12 +43,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 			return new Response(`Error ${err}`, { status: 500 });
 		}
 	}
-	event.locals.serverConfig = serverConfig;
-
-	if (!validatorsState?.ts || validatorsState.ts < unixTime() - 2) {
-		// console.log('Updating validators state...');
-		const [contractState, leader] = await getContractState(serverConfig.sdkInstance);
-		validatorsState = { st: contractState, leader, ts: unixTime() };
+	if (serverConfig) {
+		event.locals.serverConfig = serverConfig;
+		if (!validatorsState?.ts || validatorsState.ts < unixTime() - 20) {
+			// console.log('Updating validators state...');
+			await updateState();
+		}
 	}
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);

@@ -1,4 +1,4 @@
-name: Staging Aepp Base Pipeline
+name: Staging Aepp Hyperchains UI
 
 on:
   pull_request:

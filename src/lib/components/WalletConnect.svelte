@@ -56,28 +56,26 @@
 				>✕
 			</button>
 			<div>
-				{#if !conn}
-					<div class="bg-base-100">
-						<div class="alert bg-secondary mb-2">
-							<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl">
-								<div>
-									You need a special instance of
-									<a class="link link-primary" href={config.wallet} target="_blank">Base Aepp</a>
-									open in another tab. Or you can manually configure the SuperHero extension to connect
-									to this network. You can also use this
-									<a class="link link-primary" href={config.faucet} target="_blank">Faucet</a> to fund
-									your acount.
-								</div>
-								<div>
-									Network ID: <span class="text-primary badge badge-outline"
-										>{config.networkId}</span
-									>
-								</div>
-								<div>
-									Node URL: <span class="text-primary badge badge-outline">{config.node}</span>
-								</div>
+				<div class="bg-base-100">
+					<div class="alert bg-secondary mb-2">
+						<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl">
+							<div>
+								You need a special instance of
+								<a class="link link-primary" href={config.wallet} target="_blank">Base Aepp</a>
+								open in another tab. Or you can manually configure the SuperHero extension to connect
+								to this network. You can also use this
+								<a class="link link-primary" href={config.faucet} target="_blank">Faucet</a> to fund
+								your acount.
+							</div>
+							<div>
+								Network ID: <span class="text-primary badge badge-outline">{config.networkId}</span>
+							</div>
+							<div>
+								Node URL: <span class="text-primary badge badge-outline">{config.node}</span>
 							</div>
 						</div>
+					</div>
+					{#if !conn}
 						<div class="prose">
 							<h3>
 								{wallets.length ? `${wallets.length} wallets found...` : 'Scanning for wallets...'}
@@ -98,12 +96,12 @@
 								style="--value:25; --size: 2rem"
 							/>
 						</div>
-					</div>
-				{:else}
-					<div class="text-secondary">
-						<WalletCard wallet={conn.w} {config} withBorder={false} />
-					</div>
-				{/if}
+					{:else}
+						<div class="text-secondary">
+							<WalletCard wallet={conn.w} {config} withBorder={false} />
+						</div>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>

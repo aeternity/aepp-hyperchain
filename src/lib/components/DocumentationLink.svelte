@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faFlag, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+	import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 	export let url: string;
 	export let text: string;
 </script>

@@ -5,7 +5,7 @@ import { getValidatorByCt } from '../../lib/aesdk/contractState';
 export const GET: RequestHandler = async (request) => {
 	const ct = request.params['ct'];
 	const state = request.locals.stateWithTimestamp;
-	if (!ct || !getValidatorByCt(state.st.validators, ct)) {
+	if (!ct || !state || !getValidatorByCt(state.st.validators, ct)) {
 		return { status: 404 };
 	}
 	return {

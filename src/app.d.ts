@@ -10,7 +10,7 @@ declare global {
 	declare namespace App {
 		interface Locals {
 			serverConfig: ServerConfig;
-			stateWithTimestamp: ContractsState;
+			stateWithTimestamp: ContractsState | null | undefined;
 		}
 		// interface Platform {}
 		interface Session {

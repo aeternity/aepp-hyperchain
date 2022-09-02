@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 	import type { ClientGlobalConfig } from '../../routes/config';
-	import { detectWallets, mkSdk } from '../aesdk/walletConnection.js';
+	import { detectWallets } from '../aesdk/walletConnection.js';
 	import {
 		walletConnectionStore,
 		walletConnectModalOpen
 	} from '../stores/walletConnectionStore.js';
-	import AeAmount from './CoinAmount.svelte';
 	import WalletCard from './WalletCard.svelte';
 
 	export let config: ClientGlobalConfig;

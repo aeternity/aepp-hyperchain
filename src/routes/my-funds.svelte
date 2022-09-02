@@ -1,13 +1,9 @@
 <script>
 	import { getAddrShares, totalStakedForAddr } from '$lib/aesdk/contractState';
-
 	import CoinAmount from '$lib/components/CoinAmount.svelte';
-	import NavBarLink from '$lib/components/NavBarLink.svelte';
 	import StakingCard from '$lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
-	import { state } from '@aeternity/aepp-sdk/es/channel/internal';
-	import Validators from './validators.svelte';
 	$: wallet = $walletConnectionStore.connectedWallet;
 	$: vs = $validatorsStore;
 	$: myValidators = vs

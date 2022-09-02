@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { browser } from '$app/env';
-	import { aettoToAe, fromJSON } from '../lib/utils';
-	import { ContractState, getValidatorByAk, MainStakingState } from '../lib/aesdk/contractState';
+	import { fromJSON } from '../lib/utils';
+	import { ContractState, getValidatorByAk } from '../lib/aesdk/contractState';
 	import ValidatorCard from '$lib/components/ValidatorCard.svelte';
 	import AeAmount from '../lib/components/CoinAmount.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';

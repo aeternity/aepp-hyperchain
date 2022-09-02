@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import { page } from '$app/stores';
-	import {
-		ContractState,
-		getAddrShares,
-		getValidatorByAk,
-		getValidatorByCt,
-		MainStakingState
-	} from '../../lib/aesdk/contractState';
+	import { ContractState, getValidatorByAk } from '../../lib/aesdk/contractState';
 	import { fromJSON } from '../../lib/utils';
 	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
 	import AeAmount from '../../lib/components/CoinAmount.svelte';
-	import { walletConnectionStore } from '../../lib/stores/walletConnectionStore';
 	import { sharesToAetto } from '../../lib/aesdk/contractState.js';
 	import StakingCard from '../../lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
@@ -36,7 +28,7 @@
 				<h2>Delegators</h2>
 			</div>
 			<div class="space-y-2 max-w-5xl">
-				{#each Object.entries(validator.state.delegates) as [del, amount], i}
+				{#each Object.entries(validator.state.delegates) as [del, amount]}
 					<div class="navbar rounded-md bg-base-100 p-2">
 						<div class="navbar-start ">
 							<div>{del}</div>

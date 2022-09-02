@@ -1,12 +1,10 @@
 <script lang="ts">
 	import type { Validator } from '$lib/aesdk/contractState';
 	import OnlineStatusBadge from '$lib/components/OnlineStatusBadge.svelte';
-	import { aettoToAe } from '$lib/utils.js';
-	import type { ValidatorDesc } from '$lib/serverConfig';
 	import AeAmount from './CoinAmount.svelte';
 
 	export var validator: Validator;
-	export var currentLeader: ValidatorDesc | undefined;
+	export var currentLeader: Validator | undefined | null;
 	export var displayStakingButton: boolean = false;
 </script>
 

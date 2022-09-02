@@ -4,7 +4,7 @@
 	import CoinAmount from './CoinAmount.svelte';
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
 	import StakingInput from './StakingInput.svelte';
-	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
+	import { minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import UnstakingInput from './UnstakingInput.svelte';
 
 	export let validator: Validator;

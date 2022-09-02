@@ -1,6 +1,6 @@
-import { ContractState, MainStakingState, type ContractsState } from '$lib/aesdk/contractState';
+import { ContractState, type ContractsState } from '$lib/aesdk/contractState';
 import { fromJSON } from '$lib/utils';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export const fetchValidatorsState = async () => {
 	const resp = await fetch('/validators', { headers: { accept: 'application/json' } });

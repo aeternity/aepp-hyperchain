@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { AeSdk, AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
-	import { select_value } from 'svelte/internal';
+	import { AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import CoinAmount from './CoinAmount.svelte';
 	import stakingContractACI from '$lib/aesdk/MainStakingACI';
-	import { connectToWallet, walletConnectionStore } from '$lib/stores/walletConnectionStore';
+	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
 	import AmountSlider from './AmountSlider.svelte';
-	import { getValidatorByCt } from '../aesdk/contractState';
 
 	export let aettoAvailable: bigint = 0n;
 	export let validator: Validator;

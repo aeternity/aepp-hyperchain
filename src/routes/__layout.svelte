@@ -5,7 +5,7 @@
 
 	const toastOptions: SvelteToastOptions = { duration: 4000, classes: ['toast', 'toast-bottom'] };
 
-	export const load: Load = async ({ params, fetch, session, stuff }) => {
+	export const load: Load = async ({ fetch }) => {
 		const configResp = await fetch('/config');
 		const jsonResp = configResp.ok ? await configResp.json() : null;
 		return {
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 	import '../app.css';
-	import { page, getStores } from '$app/stores';
+	import { page } from '$app/stores';
 	import { assets } from '$app/paths';
 	import NavBarLink from '$lib/components/NavBarLink.svelte';
 	import WalletConnect from '../lib/components/WalletConnect.svelte';
@@ -32,18 +32,14 @@
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import stakingContractACI from '$lib/aesdk/MainStakingACI';
-	import { ContractError } from '@aeternity/aepp-sdk';
-	import { fromJSON } from '$lib/utils';
-	import { MainStakingState } from '$lib/aesdk/contractState';
 	import { fetchValidatorsState } from '$lib/stores/validatorsSore';
 
 	export let config: ClientGlobalConfig;
 	let currentPath: string;
 	$: currentPath = $page.url.pathname;
 	// console.log(getStores());
-	onMount(async () => {
-		const sdk = await mkSdk(config.node);
+	onMount(() => {
+		const sdk = mkSdk(config.node);
 		clientGlobalConfigStore.set(config);
 		minStakeAetto.set(BigInt(config.minStakeAetto));
 		walletConnectionStore.update((s) => ({ ...s, sdk }));

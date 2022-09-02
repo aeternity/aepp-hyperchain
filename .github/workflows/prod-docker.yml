@@ -1,4 +1,4 @@
-name: Production Aepp Base Pipeline
+name: Production Aepp Hyperchains UI
 
 on:
   push:

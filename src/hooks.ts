@@ -20,8 +20,13 @@ async function updateState() {
 
 async function updateStateRepeatedly() {
 	// console.log('updating state...');
-	await updateState();
-	setTimeout(updateStateRepeatedly, 5000);
+	await updateState()
+		.catch((err) => {
+			console.error(`Failed to update contract state: ${err}`);
+		})
+		.finally(() => {
+			setTimeout(updateStateRepeatedly, 5000);
+		});
 }
 
 if (!browser) {
@@ -47,7 +52,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event.locals.serverConfig = serverConfig;
 		if (!validatorsState?.ts || validatorsState.ts < unixTime() - 20) {
 			// console.log('Updating validators state...');
-			await updateState();
+			try {
+				await updateState();
+			} catch (err) {
+				console.error('Error fetching contract state', err);
+				return new Response(`Error ${err}`, { status: 500 });
+			}
 		}
 	}
 	event.locals.stateWithTimestamp = validatorsState;

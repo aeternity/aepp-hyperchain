@@ -1,11 +1,11 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { toJSON } from '$lib/utils';
-import { getValidatorByCt } from '../../lib/aesdk/contractState';
+import { getValidatorByAk } from '../../lib/aesdk/contractState';
 
 export const GET: RequestHandler = async (request) => {
-	const ct = request.params['ct'];
+	const ak = request.params['ak'];
 	const state = request.locals.stateWithTimestamp;
-	if (!ct || !state || !getValidatorByCt(state.st.validators, ct)) {
+	if (!ak || !state || !getValidatorByAk(state.st.validators, ak)) {
 		return { status: 404 };
 	}
 	return {

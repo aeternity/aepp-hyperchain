@@ -9,12 +9,12 @@
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 
 	export var state: string;
-	const ct: string = $page.params['ct'];
+	const ak: string = $page.params['ak'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
 	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
 	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.leader);
-	$: validator = stDecoded.st.validators.find((v) => v.ct == ct);
+	$: validator = getValidatorByAk(stDecoded.st.validators, ak);
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">

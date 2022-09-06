@@ -34,7 +34,7 @@
 								</a>
 							</div>
 						{/if}
-						{#each myValidators as val (val.ct)}
+						{#each myValidators as val (val.address)}
 							<StakingCard validator={val} />
 						{/each}
 					{:else}

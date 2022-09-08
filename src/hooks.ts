@@ -5,6 +5,7 @@ import { configServer, type ServerConfig } from './lib/serverConfig';
 import type { ContractsState } from './lib/aesdk/contractState';
 import { getContractState } from './lib/aesdk/contractState';
 import { unixTime } from './lib/utils';
+import { getHeight } from '@aeternity/aepp-sdk';
 
 let serverConfig: ServerConfig | null = null;
 let validatorsState: ContractsState | null = null;
@@ -14,8 +15,10 @@ async function updateState() {
 		console.log('Configuring server...');
 		serverConfig = await configServer();
 	}
-	const [contractState, leader] = await getContractState(serverConfig.sdkInstance);
-	validatorsState = { st: contractState, leader, ts: BigInt(unixTime()) };
+	const [contractState, hcElection] = await getContractState(serverConfig.sdkInstance);
+	// console.log('hcElectionState', hcElection);
+	const height = BigInt(await getHeight({ onNode: serverConfig.sdkInstance.node }));
+	validatorsState = { st: contractState, hcElection, ts: BigInt(unixTime()), height };
 }
 
 async function updateStateRepeatedly() {

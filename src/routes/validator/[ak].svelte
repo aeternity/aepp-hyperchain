@@ -13,7 +13,7 @@
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
 	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
-	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.leader);
+	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader);
 	$: validator = getValidatorByAk(stDecoded.st.validators, ak);
 </script>
 

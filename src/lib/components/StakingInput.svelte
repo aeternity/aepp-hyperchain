@@ -5,6 +5,7 @@
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
 	import AmountSlider from './AmountSlider.svelte';
+	import { getMainStakingContract } from '$lib/aesdk/mainStaking';
 
 	export let aettoAvailable: bigint = 0n;
 	export let validator: Validator;
@@ -68,13 +69,14 @@
 				class="btn btn-primary w-56 {btnDisabled && 'btn-disabled'}"
 				on:click={async () => {
 					callState = 'calling';
-					const stakingContract = await sdk.getContractInstance({
-						aci: stakingContractACI,
-						contractAddress: stakingContrAddr
-					});
-					const ret = await stakingContract.methods.stake(validator?.address, { amount: aetto });
-					console.log('staking result', ret);
-					callState = { code: ret.result.returnType, amount: ret.decodedResult.toString() };
+					const stakingContract = await getMainStakingContract(sdk);
+					if (stakingContract) {
+						const ret = await stakingContract.methods.stake(validator?.address, { amount: aetto });
+						console.log('staking result', ret);
+						callState = { code: ret.result.returnType, amount: ret.decodedResult.toString() };
+					} else {
+						console.error('stakingContract not found');
+					}
 				}}
 				>stake
 			</button>

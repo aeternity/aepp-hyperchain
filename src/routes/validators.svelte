@@ -8,7 +8,9 @@
 	export var state: string;
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
 	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
-	$: currentLeader = stDecoded ? getValidatorByAk(stDecoded.st.validators, stDecoded.leader) : null;
+	$: currentLeader = stDecoded
+		? getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader)
+		: null;
 </script>
 
 {#if stDecoded}
@@ -21,6 +23,9 @@
 					<span class="flex-auto"
 						>Total Stake In Validators: <AeAmount aetto={stDecoded.st.total_stake} /></span
 					>
+					<span class="flex-auto">
+						Height: {stDecoded.height}
+					</span>
 					<span class="flex-end">
 						Minimum Stake: <AeAmount aetto={stDecoded.st.stake_minimum} dropdownReverse />
 					</span>

@@ -6,7 +6,7 @@ export const fetchValidatorsState = async () => {
 	const resp = await fetch('/validators', { headers: { accept: 'application/json' } });
 	const jsn = resp.ok ? await resp.json() : null;
 	const validatorsState = jsn ? ContractState.parse(fromJSON(jsn.state)) : null;
-	// console.log('respBody', validatorsState);
+	// console.log('state', validatorsState);
 	validatorsStore.set(validatorsState);
 };
 

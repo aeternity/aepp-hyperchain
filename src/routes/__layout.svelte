@@ -26,13 +26,12 @@
 	import { onMount } from 'svelte';
 	import {
 		reconnectToWallet,
-		updateAccountBalance,
 		walletConnectionStore
 	} from '../lib/stores/walletConnectionStore';
 	import { mkSdk } from '../lib/aesdk/walletConnection';
 	import type { ClientGlobalConfig } from './config';
 	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import { fetchValidatorsState } from '$lib/stores/validatorsSore';
+	import { updateStoresRepeatedly } from '$lib/stores/common';
 
 	export let config: ClientGlobalConfig;
 	let currentPath: string;
@@ -43,8 +42,7 @@
 		clientGlobalConfigStore.set(config);
 		minStakeAetto.set(BigInt(config.minStakeAetto));
 		walletConnectionStore.update((s) => ({ ...s, sdk }));
-		window.setInterval(fetchValidatorsState, 5000);
-		window.setInterval(updateAccountBalance, 5000);
+		updateStoresRepeatedly();
 		reconnectToWallet(config);
 	});
 </script>

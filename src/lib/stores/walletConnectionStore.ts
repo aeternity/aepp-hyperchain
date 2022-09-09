@@ -51,6 +51,7 @@ export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
 	} = subscribedAddr;
 	const address = Object.keys(current)[0] as `ak_${string}`;
 	console.log(`Connected Wallet Address: ${address}`);
+	walletConnectModalOpen.set(false);
 	const balAETTO = await sdk.getBalance(address, { format: AE_AMOUNT_FORMATS.AETTOS });
 
 	walletConnectionStore.update((s) => {
@@ -62,7 +63,6 @@ export const connectToWallet = async (sdk: AeSdkAepp, wallet: Wallet) => {
 		s.connectedWallet = { w: wallet, addr: address, balAETTO: BigInt(balAETTO) };
 		return { ...s, scanning: false, sdk, detectorDisconnect: null, walletsFound: [] };
 	});
-	walletConnectModalOpen.set(false);
 	return sdk;
 };
 
@@ -97,7 +97,6 @@ export const reconnectToWallet = async (config: ClientGlobalConfig) => {
 					if (sdk) {
 						await connectToWallet(sdk, newWallet as Wallet);
 					}
-					detectorDisconnect();
 				}
 			}
 		});

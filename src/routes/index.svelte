@@ -1,5 +1,10 @@
 <script>
+	import { getValidatorByAk } from '$lib/aesdk/contractState';
+
 	import DocumentationLink from '$lib/components/DocumentationLink.svelte';
+	import { validatorsStore } from '$lib/stores/validatorsSore';
+	$: st = $validatorsStore;
+	$: leader = st ? getValidatorByAk(st.st.validators, st.hcElection.leader) : null;
 </script>
 
 <div class="container mt-8">
@@ -50,4 +55,20 @@
 			</a>
 		</p>
 	</div>
+	{#if st}
+		<div class="card border border-primary">
+			<div class="card-body p-4">
+				<div class=" card-title"><h3>Stats</h3></div>
+				<p>Block Height: {st.height}</p>
+				<p>Entropy String: {st.hcElection.entropy}</p>
+				<p>
+					Current Leader: <a class="link link-primary" href={`/validator/${leader?.address}`}>
+						{leader?.state.name}</a
+					>
+				</p>
+			</div>
+		</div>
+	{:else}
+		<progress class="progress progress-primary w-96" />
+	{/if}
 </div>

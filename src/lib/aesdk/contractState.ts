@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const getContractState = async (
 	sdkInstance: SdkInstance
-): Promise<[MainStakingState, string]> => {
+): Promise<[MainStakingState, HCElectionState]> => {
 	// console.log('staking contract', sdkInstance.stakingContract);
 	const resp = await sdkInstance.stakingContract.call('get_state', [], { callStatic: true });
 	// console.log('resp', resp.decodedResult);
@@ -14,7 +14,7 @@ export const getContractState = async (
 	const hcState = HCElectionState.parse(hcElectionState.decodedResult);
 	// console.log('state', resp.decodedResult);
 	const msState = MainStakingState.parse(resp.decodedResult);
-	return [msState, hcState.leader];
+	return [msState, hcState];
 };
 
 const RecordOrMap = z
@@ -73,9 +73,15 @@ export const MainStakingState = z
 	.strict();
 export type MainStakingState = z.infer<typeof MainStakingState>;
 
-export const HCElectionState = z.object({ leader: z.string() });
+export const HCElectionState = z.object({ leader: z.string(), entropy: z.string() });
+export type HCElectionState = z.infer<typeof HCElectionState>;
 
-export const ContractState = z.object({ st: MainStakingState, leader: z.string(), ts: z.bigint() });
+export const ContractState = z.object({
+	st: MainStakingState,
+	hcElection: HCElectionState,
+	ts: z.bigint(),
+	height: z.bigint()
+});
 export type ContractsState = z.infer<typeof ContractState>;
 
 export const getAddrShares = (validator: Validator, addr: string) =>

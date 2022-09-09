@@ -1,11 +1,13 @@
 <script lang="ts">
 	import type { Validator } from '$lib/aesdk/contractState';
 	import OnlineStatusBadge from '$lib/components/OnlineStatusBadge.svelte';
+	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import AeAmount from './CoinAmount.svelte';
 
 	export var validator: Validator;
 	export var currentLeader: Validator | undefined | null;
 	export var displayStakingButton: boolean = false;
+	$: wallet = $walletConnectionStore.connectedWallet;
 </script>
 
 <div class="card shadow-lg bg-base-100 overflow-visible">
@@ -32,8 +34,17 @@
 					<div class="badge badge-outline badge-info ml-2">Current leader</div>
 				{/if}
 			</div>
-			{#if displayStakingButton}
-				<div class="flex-end">
+			<div class="flex-end">
+				{#if validator.address === wallet?.addr}
+					<a
+						sveltekit:prefetch
+						class="btn btn-accent"
+						href={`/validator/${validator.address}/edit`}
+					>
+						Edit Validator
+					</a>
+				{/if}
+				{#if displayStakingButton}
 					<a
 						sveltekit:prefetch
 						class="btn btn-primary shadow"
@@ -41,8 +52,8 @@
 					>
 						Staking
 					</a>
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</div>
 		<p>{validator.state.description || '[no description]'}</p>
 		<p>

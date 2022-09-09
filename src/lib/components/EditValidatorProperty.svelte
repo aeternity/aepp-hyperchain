@@ -19,7 +19,7 @@
 			<p>
 				Previous value: {previousValue}
 			</p>
-			<label class="label flex-auto" >
+			<label class="label flex-auto">
 				set to: <input bind:value={currentValue} class="input input-bordered w-10/12" />
 			</label>
 		</div>

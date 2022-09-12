@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getMainStakingContract, type ValidatorPropCalls } from '$lib/aesdk/mainStaking';
-	import { updateStores } from '$lib/stores/common';
 	import type { AeSdkAepp } from '@aeternity/aepp-sdk';
 
 	export let sdk: AeSdkAepp;
@@ -20,12 +19,15 @@
 			<p>
 				Previous value: {previousValue}
 			</p>
-			<label class="label flex-auto" value="value">
+			<label class="label flex-auto">
 				set to: <input bind:value={currentValue} class="input input-bordered w-10/12" />
 			</label>
 		</div>
 	</div>
 	<div class="card-actions justify-end">
+		{#if callingContract}
+			<progress class="progress progress-primary w-full"></progress>
+		{/if}
 		<button
 			class="flex-end btn btn-success {btnDisabled}"
 			on:click={async () => {

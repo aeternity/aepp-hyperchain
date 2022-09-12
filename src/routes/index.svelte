@@ -2,6 +2,7 @@
 	import { getValidatorByAk } from '$lib/aesdk/contractState';
 
 	import DocumentationLink from '$lib/components/DocumentationLink.svelte';
+	import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	$: st = $validatorsStore;
 	$: leader = st ? getValidatorByAk(st.st.validators, st.hcElection.leader) : null;
@@ -9,7 +10,7 @@
 
 <div class="container mt-8">
 	<div class="prose prose-3xl mb-8">
-		<h1 class="font-light">Hyperchains Alpha Network</h1>
+		<h1 class="font-light">Hyper Chain 0.2</h1>
 		<ul class="space-y-4">
 			<li>
 				<DocumentationLink
@@ -41,8 +42,8 @@
 			</li>
 		</ul>
 		<p>
-			Hyperchains are the next incarnation of the Aeternity network. This is an Alpha Hyper (child)
-			chain aimed at showing what's possible with hyperchains. The tokens here are called <span
+			Hyperchains are the next incarnation of the Aeternity network. This is a hyper (child) chain
+			aimed at showing what's possible with hyperchains. The tokens here are called <span
 				class="badge badge-outline badge-primary font-bold">HCtokens</span
 			>
 			with the smallest unit called

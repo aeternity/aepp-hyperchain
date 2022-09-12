@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { AE_AMOUNT_FORMATS, toAe, toAettos } from '@aeternity/aepp-sdk';
-	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
-	import stakingContractACI from '$lib/aesdk/MainStakingACI';
+	import { minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { Validator } from '../aesdk/contractState';
 	import AmountSlider from './AmountSlider.svelte';
@@ -11,8 +10,6 @@
 	export let validator: Validator;
 
 	$: sdk = $walletConnectionStore.sdk!;
-	$: stakingContrAddr = $clientGlobalConfigStore?.stakingContract!;
-
 	$: aetto = 0n;
 	$: ae = parseFloat(toAe(aetto as any));
 	$: outsideRange = aetto < 0n || aetto > aettoAvailable;

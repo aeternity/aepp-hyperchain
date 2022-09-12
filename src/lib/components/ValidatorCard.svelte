@@ -3,10 +3,12 @@
 	import OnlineStatusBadge from '$lib/components/OnlineStatusBadge.svelte';
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import AeAmount from './CoinAmount.svelte';
+	import Fa from 'svelte-fa';
+	import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 	export var validator: Validator;
 	export var currentLeader: Validator | undefined | null;
-	export var displayStakingButton: boolean = false;
+	export var displayStakingButton = false;
 	$: wallet = $walletConnectionStore.connectedWallet;
 </script>
 
@@ -38,10 +40,10 @@
 				{#if validator.address === wallet?.addr}
 					<a
 						sveltekit:prefetch
-						class="btn btn-accent"
+						class="btn btn-secondary btn-outline"
 						href={`/validator/${validator.address}/edit`}
 					>
-						Edit Validator
+						Edit Validator <Fa class="ml-2" icon={faEdit} size="lg" />
 					</a>
 				{/if}
 				{#if displayStakingButton}

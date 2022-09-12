@@ -5,7 +5,8 @@
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
 	import type { ValidatorPropCalls } from '$lib/aesdk/mainStaking';
 	import EditValidatorProperty from '$lib/components/EditValidatorProperty.svelte';
-	import { state } from '@aeternity/aepp-sdk/es/channel/internal';
+	import Fa from 'svelte-fa';
+	import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 	const ak: string = $page.params['ak'];
 
@@ -54,16 +55,22 @@
 								<img src={validator.state.image_url} alt="Validator Avatar" />
 							</div>
 							<div>
-								{validator.state.image_url}
+								Current:
+								<span class="alert p-2 rounded-md">
+									{validator.state.image_url}
+								</span>
 							</div>
 							<button
-								class="btn btn-success"
+								class="btn btn-secondary btn-outline rounded-full btn-sm"
 								on:click={() => {
 									validatorPropCall = 'set_validator_avatar_url';
 									previousValue = validator?.state.image_url || '';
-								}}>edit</button
+								}}
 							>
+								edit <Fa class="ml-2" icon={faEdit} size="lg" />
+							</button>
 						</div>
+						<div class="card-actions" />
 					</div>
 				</div>
 				<div class="card border border-primary shadow-lg p-4">
@@ -74,11 +81,11 @@
 								{validator.state.name}
 							</div>
 							<button
-								class="btn btn-success"
+								class="btn btn-secondary btn-outline rounded-full btn-sm"
 								on:click={() => {
 									validatorPropCall = 'set_validator_name';
 									previousValue = validator?.state.name || '';
-								}}>edit</button
+								}}>edit <Fa class="ml-2" icon={faEdit} size="lg" /></button
 							>
 						</div>
 					</div>
@@ -91,11 +98,11 @@
 								{validator.state.description}
 							</div>
 							<button
-								class="btn btn-success"
+								class="btn btn-secondary btn-outline rounded-full btn-sm"
 								on:click={() => {
 									validatorPropCall = 'set_validator_description';
 									previousValue = validator?.state.description || '';
-								}}>edit</button
+								}}>edit <Fa class="ml-2" icon={faEdit} size="lg" /></button
 							>
 						</div>
 					</div>

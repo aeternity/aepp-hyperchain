@@ -30,7 +30,12 @@
 			<div>
 				HCsats amount:
 				<label class="label">
-					<input type="number" bind:value={aetto} class="input input-bordered w-full" />
+					<input
+						type="number"
+						value={aetto}
+						class="input input-bordered w-full"
+						on:input={(e) => (aetto = BigInt(e.target.value))}
+					/>
 				</label>
 			</div>
 			<div>

@@ -33,7 +33,7 @@
 						type="number"
 						value={shares}
 						class="input input-bordered w-full"
-						on:input={(e) => (shares = BigInt(e.target.value))}
+						on:input={(e) => (shares = BigInt(e.target.value || 0))}
 					/>
 				</label>
 			</div>

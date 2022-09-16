@@ -8,7 +8,7 @@
 
 	export var validator: Validator;
 	export var currentLeader: Validator | undefined | null;
-	export var displayStakingButton = false;
+	export var displayStakingButton: boolean = false;
 	$: wallet = $walletConnectionStore.connectedWallet;
 </script>
 

@@ -2,7 +2,6 @@
 	import { getValidatorByAk } from '$lib/aesdk/contractState';
 
 	import DocumentationLink from '$lib/components/DocumentationLink.svelte';
-	import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	$: st = $validatorsStore;
 	$: leader = st ? getValidatorByAk(st.st.validators, st.hcElection.leader) : null;

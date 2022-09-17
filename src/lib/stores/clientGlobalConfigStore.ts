@@ -1,4 +1,4 @@
-import type { ClientGlobalConfig } from 'src/routes/config';
+import type { ClientGlobalConfig } from '$lib/ClientGlobalConfig';
 import { writable } from 'svelte/store';
 
 export const clientGlobalConfigStore = writable<ClientGlobalConfig | undefined>();

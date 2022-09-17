@@ -5,7 +5,7 @@ import type { SUBSCRIPTION_TYPES } from '@aeternity/aepp-sdk';
 import { AE_AMOUNT_FORMATS } from '@aeternity/aepp-sdk';
 import { z } from 'zod';
 import { createBaseAeppIframe } from '$lib/aesdk/walletConnection';
-import type { ClientGlobalConfig } from 'src/routes/config';
+import type { ClientGlobalConfig } from '$lib/ClientGlobalConfig';
 
 const WALLET_INFO_KEY = 'walletInfo';
 

@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { ContractState, getValidatorByAk } from '../../lib/aesdk/contractState';
-	import { fromJSON } from '../../lib/utils';
-	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
-	import AeAmount from '../../lib/components/CoinAmount.svelte';
-	import { sharesToAetto } from '../../lib/aesdk/contractState.js';
-	import StakingCard from '../../lib/components/StakingCard.svelte';
+	import { ContractState, getValidatorByAk } from '../../../lib/aesdk/contractState';
+	import { fromJSON } from '../../../lib/utils';
+	import ValidatorCard from '../../../lib/components/ValidatorCard.svelte';
+	import AeAmount from '../../../lib/components/CoinAmount.svelte';
+	import { sharesToAetto } from '../../../lib/aesdk/contractState.js';
+	import StakingCard from '../../../lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
+	import type { PageData } from './$types';
 
-	export var state: string;
+	export let data: PageData;
+	$: state = data.state;
 	const ak: string = $page.params['ak'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;

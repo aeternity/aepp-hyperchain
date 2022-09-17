@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import type { Handle } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 import { configServer, type ServerConfig } from './lib/serverConfig';

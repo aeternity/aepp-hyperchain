@@ -8,10 +8,7 @@ const config = {
 	preprocess: preprocess({ postcss: true, sourceMap: true }),
 
 	kit: {
-		adapter: adapter(),
-		methodOverride: {
-			allowed: ['PATCH', 'DELETE']
-		}
+		adapter: adapter()
 	}
 };
 

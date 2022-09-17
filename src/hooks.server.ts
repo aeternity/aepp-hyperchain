@@ -66,11 +66,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);
 };
-
-// export const handleError: HandleError = ({ error, event }) => {
-// 	console.log('error', error);
-// };
-
-// export const getSession: GetSession = async (event) => {
-// 	event
-// };

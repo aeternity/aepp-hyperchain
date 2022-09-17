@@ -28,7 +28,7 @@
 						</div>
 						{#if !myValidators?.length}
 							<div>
-								<a sveltekit:prefetch href="/validators">
+								<a data-sveltekit-prefetch href="/validators">
 									<button class="btn btn-secondary rounded-xl"
 										>Choose a validator to delegate</button
 									>

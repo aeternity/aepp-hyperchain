@@ -50,7 +50,7 @@
 			connection to the main AE chain, but technically follow the same structure.
 		</p>
 		<p>
-			<a sveltekit:prefetch href="/validators">
+			<a data-sveltekit-prefetch href="/validators">
 				<button class="btn btn-secondary rounded-full">go to the validators page</button>
 			</a>
 		</p>

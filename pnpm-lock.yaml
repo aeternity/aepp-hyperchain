@@ -7,7 +7,7 @@ specifiers:
   '@originjs/vite-plugin-commonjs': ^1.0.3
   '@playwright/test': ^1.24.2
   '@sveltejs/adapter-node': next
-  '@sveltejs/kit': 1.0.0-next.450
+  '@sveltejs/kit': 1.0.0-next.454
   '@sveltejs/vite-plugin-svelte': ^1.0.1
   '@tailwindcss/typography': ^0.5.4
   '@types/json-bigint': ^1.0.1
@@ -52,7 +52,7 @@ devDependencies:
   '@originjs/vite-plugin-commonjs': 1.0.3
   '@playwright/test': 1.24.2
   '@sveltejs/adapter-node': 1.0.0-next.92
-  '@sveltejs/kit': 1.0.0-next.450_svelte@3.49.0+vite@3.1.2
+  '@sveltejs/kit': 1.0.0-next.454_svelte@3.49.0+vite@3.1.2
   '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.49.0+vite@3.1.2
   '@tailwindcss/typography': 0.5.4_tailwindcss@3.1.8
   '@types/json-bigint': 1.0.1
@@ -329,8 +329,8 @@ packages:
       esbuild: 0.15.7
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.450_svelte@3.49.0+vite@3.1.2:
-    resolution: {integrity: sha512-sBi1eUD/ybRzIMOYQDNMnXi8msz5FTkZtQHE9Ydrdf7hN1jljbsKE53zfZOskLEzA673uZyxo3kkE9ESnISedg==}
+  /@sveltejs/kit/1.0.0-next.454_svelte@3.49.0+vite@3.1.2:
+    resolution: {integrity: sha512-Adbd837/E8B8TPVPlQZT4R0o3NekmtyUEYnI46M/YupMtg1NnaVdLF8Na6xoivtnIY7dP5H10zGJhGsTon3fPQ==}
     engines: {node: '>=16.14'}
     hasBin: true
     requiresBuild: true

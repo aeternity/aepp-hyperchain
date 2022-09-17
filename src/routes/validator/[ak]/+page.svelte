@@ -14,9 +14,11 @@
 	const ak: string = $page.params['ak'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
-	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader);
-	$: validator = getValidatorByAk(stDecoded.st.validators, ak);
+	$: stDecoded = stateFromStore || (state ? ContractState.parse(fromJSON(state)) : null);
+	$: currentLeader = stDecoded
+		? getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader)
+		: null;
+	$: validator = stDecoded ? getValidatorByAk(stDecoded.st.validators, ak) : undefined;
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">

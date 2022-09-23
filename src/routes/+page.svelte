@@ -2,7 +2,6 @@
 	import { getValidatorByAk } from '$lib/aesdk/contractState';
 
 	import DocumentationLink from '$lib/components/DocumentationLink.svelte';
-	import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	$: st = $validatorsStore;
 	$: leader = st ? getValidatorByAk(st.st.validators, st.hcElection.leader) : null;
@@ -51,7 +50,7 @@
 			connection to the main AE chain, but technically follow the same structure.
 		</p>
 		<p>
-			<a sveltekit:prefetch href="/validators">
+			<a data-sveltekit-prefetch href="/validators">
 				<button class="btn btn-secondary rounded-full">go to the validators page</button>
 			</a>
 		</p>

@@ -4,6 +4,7 @@
 	import StakingCard from '$lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
 	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
+
 	$: wallet = $walletConnectionStore.connectedWallet;
 	$: vs = $validatorsStore;
 	$: myValidators = vs
@@ -27,7 +28,7 @@
 						</div>
 						{#if !myValidators?.length}
 							<div>
-								<a sveltekit:prefetch href="/validators">
+								<a data-sveltekit-prefetch href="/validators">
 									<button class="btn btn-secondary rounded-xl"
 										>Choose a validator to delegate</button
 									>

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Wallet } from '../stores/walletConnectionStore';
-	import type { ClientGlobalConfig } from '../../routes/config';
 	import { walletConnectionStore } from '../stores/walletConnectionStore';
 	import { connectToWallet, disconnectWallet } from '../stores/walletConnectionStore.js';
 	import { detectWallets } from '../aesdk/walletConnection.js';
 	import AeAmount from './CoinAmount.svelte';
+	import type { ClientGlobalConfig } from '$lib/ClientGlobalConfig';
 
 	export let withBorder = true;
 	export let wallet: Wallet;

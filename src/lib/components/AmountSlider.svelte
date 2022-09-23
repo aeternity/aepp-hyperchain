@@ -15,8 +15,8 @@
 		step={10}
 		class="range {color === 'secondary' ? 'range-secondary' : 'range-primary'} range-md"
 		on:input={(e) => {
-			if (e?.target?.value) {
-				const newPercent = BigInt(e.target.value);
+			if (e.target?.value) {
+				const newPercent = BigInt(e.target?.value);
 				onChange((max * newPercent) / 100n);
 			} else {
 				console.error('slider value not available... event target is:', e);

@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { ContractState, getValidatorByAk } from '../../lib/aesdk/contractState';
-	import { fromJSON } from '../../lib/utils';
-	import ValidatorCard from '../../lib/components/ValidatorCard.svelte';
-	import AeAmount from '../../lib/components/CoinAmount.svelte';
-	import { sharesToAetto } from '../../lib/aesdk/contractState.js';
-	import StakingCard from '../../lib/components/StakingCard.svelte';
+	import { ContractState, getValidatorByAk } from '../../../lib/aesdk/contractState';
+	import { fromJSON } from '../../../lib/utils';
+	import ValidatorCard from '../../../lib/components/ValidatorCard.svelte';
+	import AeAmount from '../../../lib/components/CoinAmount.svelte';
+	import { sharesToAetto } from '../../../lib/aesdk/contractState.js';
+	import StakingCard from '../../../lib/components/StakingCard.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
+	import type { PageData } from './$types';
 
-	export var state: string;
+	export let data: PageData;
+	$: state = data.state;
 	const ak: string = $page.params['ak'];
 
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
-	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
-	$: currentLeader = getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader);
-	$: validator = getValidatorByAk(stDecoded.st.validators, ak);
+	$: stDecoded = stateFromStore || (state ? ContractState.parse(fromJSON(state)) : null);
+	$: currentLeader = stDecoded
+		? getValidatorByAk(stDecoded.st.validators, stDecoded.hcElection.leader)
+		: null;
+	$: validator = stDecoded ? getValidatorByAk(stDecoded.st.validators, ak) : undefined;
 </script>
 
 <div class="container bg-neutral p-4 space-y-4">

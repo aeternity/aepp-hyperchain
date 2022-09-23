@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { fromJSON } from '../lib/utils';
-	import { ContractState, getValidatorByAk } from '../lib/aesdk/contractState';
+	import { fromJSON } from '../../lib/utils';
+	import { ContractState, getValidatorByAk } from '../../lib/aesdk/contractState';
 	import ValidatorCard from '$lib/components/ValidatorCard.svelte';
-	import AeAmount from '../lib/components/CoinAmount.svelte';
+	import AeAmount from '../../lib/components/CoinAmount.svelte';
 	import { validatorsStore } from '$lib/stores/validatorsSore';
+	import type { PageData } from './$types';
 
-	export var state: string;
+	export var data: PageData;
+	$: state = data.state;
 	$: stateFromStore = $validatorsStore ? $validatorsStore : null;
 	$: stDecoded = stateFromStore ? stateFromStore : ContractState.parse(fromJSON(state));
 	$: currentLeader = stDecoded

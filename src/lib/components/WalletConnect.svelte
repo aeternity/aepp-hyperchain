@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ClientGlobalConfig } from '../../routes/config';
+	import type { ClientGlobalConfig } from '$lib/ClientGlobalConfig.js';
 	import { detectWallets } from '../aesdk/walletConnection.js';
 	import {
 		walletConnectionStore,

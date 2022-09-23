@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import type { Handle } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 import { configServer, type ServerConfig } from './lib/serverConfig';
@@ -66,11 +66,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.stateWithTimestamp = validatorsState;
 	return resolve(event);
 };
-
-// export const handleError: HandleError = ({ error, event }) => {
-// 	console.log('error', error);
-// };
-
-// export const getSession: GetSession = async (event) => {
-// 	event
-// };

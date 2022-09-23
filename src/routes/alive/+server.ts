@@ -1,10 +1,8 @@
+import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = () => {
-	return {
-		code: 200,
-		body: {
-			alive: true
-		}
-	};
+	return json({
+		alive: true
+	});
 };

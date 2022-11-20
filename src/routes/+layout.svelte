@@ -65,6 +65,7 @@
 						class="link"
 						href="https://www.aeternity-foundation.org/"
 						target="_blank"
+						rel="noreferrer"
 					>
 						Aeternity Crypto Foundation
 					</a>

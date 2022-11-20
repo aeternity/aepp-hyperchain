@@ -59,11 +59,14 @@
 						<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl">
 							<div>
 								You need a special instance of
-								<a class="link link-primary" href={config.wallet} target="_blank">Base Aepp</a>
+								<a class="link link-primary" href={config.wallet} target="_blank" rel="noreferer"
+									>Base Aepp</a
+								>
 								open in another tab. Or you can manually configure the SuperHero extension to connect
 								to this network. You can also use this
-								<a class="link link-primary" href={config.faucet} target="_blank">Faucet</a> to fund
-								your acount.
+								<a class="link link-primary" href={config.faucet} target="_blank" rel="noreferer"
+									>Faucet</a
+								> to fund your acount.
 							</div>
 							<div>
 								Network ID: <span class="text-primary badge badge-outline">{config.networkId}</span>

@@ -23,25 +23,27 @@
 >
 	<div class="card-body text-secondary p-1">
 		<h4 class="card-title">{wallet.info.name}</h4>
-		<p>
-			type: {wallet.info.type}
-			{#if wallet.info.type === 'window' && !connectedToWallet}
-				<span class="badge badge-outline badge-warning">Requires pop-ups permission!</span>
-			{/if}
-		</p>
-		<p>
-			network:
-			<span class="badge badge-outline {sameNetwork ? 'badge-success' : 'badge-ghost'}">
-				{wallet.info.networkId}
-			</span>
-		</p>
-		{#if conn}
-			<p>Address: {conn.addr}</p>
+		<div>
 			<p>
-				Balance:
-				<AeAmount aetto={conn.balAETTO} />
+				type: {wallet.info.type}
+				{#if wallet.info.type === 'window' && !connectedToWallet}
+					<span class="badge badge-outline badge-warning">Requires pop-ups permission!</span>
+				{/if}
 			</p>
-		{/if}
+			<p>
+				network:
+				<span class="badge badge-outline {sameNetwork ? 'badge-success' : 'badge-ghost'}">
+					{wallet.info.networkId}
+				</span>
+			</p>
+			{#if conn}
+				<p class="break-all">Address: {conn.addr}</p>
+				<p>
+					Balance:
+					<AeAmount aetto={conn.balAETTO} />
+				</p>
+			{/if}
+		</div>
 	</div>
 	<div class="card-actions justify-end">
 		{#if connectedToWallet}

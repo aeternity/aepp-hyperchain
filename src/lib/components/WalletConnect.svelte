@@ -47,7 +47,7 @@
 	</button>
 
 	<div class="modal {$walletConnectModalOpen && 'modal-open'}" on:click={closeScanner}>
-		<div class="modal-box max-w-5xl p-8" on:click|stopPropagation>
+		<div class="modal-box max-w-5xl p-1 md:p-8" on:click|stopPropagation>
 			<button
 				on:click={closeScanner}
 				class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"
@@ -82,12 +82,10 @@
 								{wallets.length ? `${wallets.length} wallets found...` : 'Scanning for wallets...'}
 							</h3>
 						</div>
-						<div class="flex flex-row space-x-2 mb-1">
+						<div class="grid grid-rows-1 md:grid-rows-2 space-y-1 mb-1">
 							{#each wallets as wallet}
 								{#key wallet.info.id}
-									<div class="w-1/2">
-										<WalletCard {wallet} {config} />
-									</div>
+									<WalletCard {wallet} {config} />
 								{/key}
 							{/each}
 						</div>

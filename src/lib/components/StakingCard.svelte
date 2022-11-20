@@ -42,7 +42,7 @@
 				modalOpen = null;
 			}}
 		>
-			<div class="modal-box max-w-3xl" on:click|stopPropagation>
+			<div class="modal-box max-w-3xl p-1 md:p-2" on:click|stopPropagation>
 				<button
 					on:click={() => (modalOpen = null)}
 					class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"

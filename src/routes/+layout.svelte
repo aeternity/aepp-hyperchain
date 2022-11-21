@@ -39,20 +39,20 @@
 					class="btn btn-secondary rounded-full normal-case text-xl no-animation p-0 flex space-x-1"
 					href="/"
 				>
-					<span class="md:hidden">
+					<span class="lg:hidden">
 						<span class="flex space-x-1">
 							<img alt="AE Symbol" src="{assets}/ae-symbol.svg" />
 							<h1 class="font-light text-primary-content">Hyperchains</h1>
 						</span>
 					</span>
-					<span class="avatar hidden md:flex m-0 rounded-full ">
+					<span class="avatar hidden lg:flex m-0 rounded-full ">
 						<span class="p-2 pl-3 pr-3 ">
 							<img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
 						</span>
 						<h1 class="font-light text-primary-content">Hyperchains</h1>
 					</span>
 				</a>
-				<div class="flex space-x-1">
+				<div class="grid grid-cols-2 space-x-1">
 					<NavBarLink navUrl="/my-funds" text="My Funds" {currentPath} />
 					<NavBarLink navUrl="/validators" text="Validators" {currentPath} />
 				</div>

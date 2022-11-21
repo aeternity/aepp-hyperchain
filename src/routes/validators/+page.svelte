@@ -20,8 +20,8 @@
 		<div
 			class="card overflow-visible rounded-b-box shadow-lg mb-2 ml-2 mr-2 bg-base-100  border-primary/50"
 		>
-			<div class="p-4 card-body">
-				<div class="flex">
+			<div class="p-2 md:p-4 card-body">
+				<div class="grid grid-cols-1 md:grid-cols-3">
 					<span class="flex-auto"
 						>Total Stake In Validators: <AeAmount aetto={stDecoded.st.total_stake} /></span
 					>
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="p-4 space-y-4">
+		<div class="p-2 md:p-4 space-y-4">
 			{#each stDecoded.st.validators as validator}
 				<ValidatorCard {validator} {currentLeader} displayStakingButton={true} />
 			{/each}

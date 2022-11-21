@@ -14,18 +14,20 @@
 
 <div class="card shadow-lg bg-base-100 overflow-visible">
 	<div class="card-body p-4">
-		<div class="card-title grid grid-cols-1 md:grid-cols-2">
+		<div class="card-title">
 			<div class="flex">
-				<a data-sveltekit-prefetch href={`/validator/${validator.address}`}>
-					<div class="avatar mr-4 shadow-sm">
-						<div class="w-16 rounded  border-neutral border-2">
-							<img
-								src={validator.state.image_url}
-								alt={validator.state.image_url ? 'avatar' : 'no avatar'}
-							/>
+				<div>
+					<a data-sveltekit-prefetch href={`/validator/${validator.address}`}>
+						<div class="avatar mr-4 shadow-sm">
+							<div class="w-16 rounded  border-neutral border-2">
+								<img
+									src={validator.state.image_url}
+									alt={validator.state.image_url ? 'avatar' : 'no avatar'}
+								/>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				</div>
 				<div>
 					<h3 class="mr-4">
 						<a
@@ -44,32 +46,34 @@
 					</div>
 				</div>
 			</div>
-			<div class="">
-				{#if displayStakingButton}
-					<a
-						data-sveltekit-prefetch
-						class="btn btn-primary shadow"
-						href={`/validator/${validator.address}`}
-					>
-						Staking
-					</a>
-				{/if}
-				{#if validator.address === wallet?.addr}
-					<a
-						data-sveltekit-prefetch
-						class="btn btn-secondary btn-outline"
-						href={`/validator/${validator.address}/edit`}
-					>
-						Edit Validator <Fa class="ml-2" icon={faEdit} size="lg" />
-					</a>
-				{/if}
-			</div>
 		</div>
-		<p>{validator.state.description || '[no description]'}</p>
-		<p>
-			<AeAmount aetto={validator.stake} />
-			staked by {Object.keys(validator.state.delegates).length} delegators
-		</p>
-		<p class="text-secondary">{validator.state.shares} shares</p>
+		<div>
+			<p>{validator.state.description || '[no description]'}</p>
+			<p>
+				<AeAmount aetto={validator.stake} />
+				staked by {Object.keys(validator.state.delegates).length} delegators
+			</p>
+			<p class="text-secondary">{validator.state.shares} shares</p>
+		</div>
+	</div>
+	<div class="card-actions justify-end pb-2 pr-2">
+		{#if validator.address === wallet?.addr}
+			<a
+				data-sveltekit-prefetch
+				class="btn btn-secondary btn-outline"
+				href={`/validator/${validator.address}/edit`}
+			>
+				Edit Validator <Fa class="ml-2" icon={faEdit} size="lg" />
+			</a>
+		{/if}
+		{#if displayStakingButton}
+			<a
+				data-sveltekit-prefetch
+				class="btn btn-primary shadow"
+				href={`/validator/${validator.address}`}
+			>
+				Staking
+			</a>
+		{/if}
 	</div>
 </div>

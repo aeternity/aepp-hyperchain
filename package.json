@@ -19,8 +19,8 @@
 		"@originjs/vite-plugin-commonjs": "^1.0.3",
 		"@playwright/test": "^1.28.0",
 		"@sveltejs/adapter-node": "next",
-		"@sveltejs/kit": "1.0.0-next.553",
-		"@sveltejs/vite-plugin-svelte": "^1.2.0",
+		"@sveltejs/kit": "1.0.0-next.587",
+		"@sveltejs/vite-plugin-svelte": "^2.0.2",
 		"@tailwindcss/typography": "^0.5.8",
 		"@types/json-bigint": "^1.0.1",
 		"@types/node": "^18.11.9",
@@ -36,8 +36,8 @@
 		"postcss": "^8.4.19",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.8.1",
-		"svelte": "^3.53.1",
-		"svelte-check": "^2.9.2",
+		"svelte": "^3.55.0",
+		"svelte-check": "^2.10.2",
 		"svelte-fa": "^3.0.3",
 		"svelte-preprocess": "^4.10.7",
 		"tailwindcss": "^3.2.4",
@@ -45,7 +45,7 @@
 		"tslib": "^2.4.1",
 		"typeface-roboto": "^1.1.13",
 		"typescript": "^4.9.3",
-		"vite": "^3.2.4"
+		"vite": "^4.0.1"
 	},
 	"type": "module",
 	"dependencies": {

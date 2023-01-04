@@ -16,6 +16,12 @@
 
 	let validatorPropCall: ValidatorPropCalls | null = null;
 	let previousValue = '';
+
+	function escClose(k: KeyboardEvent) {
+		if (k.code === 'Escape') {
+			validatorPropCall = null;
+		}
+	}
 </script>
 
 <div>
@@ -28,8 +34,9 @@
 				<div
 					class="modal {!!validatorPropCall && 'modal-open'}"
 					on:click={() => (validatorPropCall = null)}
+					on:keydown={escClose}
 				>
-					<div class="modal-box max-w-3xl" on:click|stopPropagation>
+					<div class="modal-box max-w-3xl" on:click|stopPropagation on:keydown={escClose}>
 						<button
 							on:click={() => (validatorPropCall = null)}
 							class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"

@@ -34,19 +34,28 @@
 <div class="min-h-screen">
 	<div class="bg-secondary sticky top-0 z-40">
 		<div class="navbar bg-secondary text-primary mt-0 pt-3 pb-3 shadow-lg">
-			<div class="navbar-start">
-				<a class="btn btn-secondary rounded-full normal-case text-xl no-animation" href="/">
-					<span class="avatar  m-0 p-2 pl-3 pr-3 rounded-full ">
-						<span class="">
-							<img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
+			<div class="navbar-start grid grid-cols-1 md:grid-cols-2">
+				<a
+					class="btn btn-secondary rounded-full normal-case text-xl no-animation p-0 flex space-x-1"
+					href="/"
+				>
+					<span class="lg:hidden">
+						<span class="flex space-x-1">
+							<img alt="AE Symbol" src="{assets}/ae-symbol.svg" />
+							<h1 class="font-light text-primary-content">Hyperchains</h1>
 						</span>
 					</span>
-					<h1 class="font-light text-primary-content">Hyperchains</h1>
+					<span class="avatar hidden lg:flex m-0 rounded-full ">
+						<span class="p-2 pl-3 pr-3 ">
+							<img alt="Aeternity Logo" src="{assets}/aeternity-logo-white-font.svg" />
+						</span>
+						<h1 class="font-light text-primary-content">Hyperchains</h1>
+					</span>
 				</a>
-			</div>
-			<div class="navbar-center space-x-1">
-				<NavBarLink navUrl="/my-funds" text="My Funds" {currentPath} />
-				<NavBarLink navUrl="/validators" text="Validators" {currentPath} />
+				<div class="grid grid-cols-2 space-x-1">
+					<NavBarLink navUrl="/my-funds" text="My Funds" {currentPath} />
+					<NavBarLink navUrl="/validators" text="Validators" {currentPath} />
+				</div>
 			</div>
 			<div class="navbar-end">
 				<WalletConnect {config} />
@@ -65,6 +74,7 @@
 						class="link"
 						href="https://www.aeternity-foundation.org/"
 						target="_blank"
+						rel="noreferrer"
 					>
 						Aeternity Crypto Foundation
 					</a>

@@ -22,6 +22,11 @@
 		}
 		walletConnectModalOpen.set(false);
 	};
+	const escClose = (k: KeyboardEvent) => {
+		if (k.code === 'Escape') {
+			closeScanner();
+		}
+	};
 </script>
 
 <div>
@@ -46,8 +51,12 @@
 		{/if}
 	</button>
 
-	<div class="modal {$walletConnectModalOpen && 'modal-open'}" on:click={closeScanner}>
-		<div class="modal-box max-w-5xl p-8" on:click|stopPropagation>
+	<div
+		class="modal {$walletConnectModalOpen && 'modal-open'}"
+		on:click={closeScanner}
+		on:keypress={escClose}
+	>
+		<div class="modal-box max-w-5xl p-1 md:p-8" on:click|stopPropagation on:keypress={escClose}>
 			<button
 				on:click={closeScanner}
 				class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"
@@ -59,11 +68,14 @@
 						<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl">
 							<div>
 								You need a special instance of
-								<a class="link link-primary" href={config.wallet} target="_blank">Base Aepp</a>
+								<a class="link link-primary" href={config.wallet} target="_blank" rel="noreferrer"
+									>Base Aepp</a
+								>
 								open in another tab. Or you can manually configure the SuperHero extension to connect
 								to this network. You can also use this
-								<a class="link link-primary" href={config.faucet} target="_blank">Faucet</a> to fund
-								your acount.
+								<a class="link link-primary" href={config.faucet} target="_blank" rel="noreferrer"
+									>Faucet</a
+								> to fund your acount.
 							</div>
 							<div>
 								Network ID: <span class="text-primary badge badge-outline">{config.networkId}</span>
@@ -79,12 +91,10 @@
 								{wallets.length ? `${wallets.length} wallets found...` : 'Scanning for wallets...'}
 							</h3>
 						</div>
-						<div class="flex flex-row space-x-2 mb-1">
+						<div class="grid grid-rows-1 md:grid-rows-2 space-y-1 mb-1">
 							{#each wallets as wallet}
 								{#key wallet.info.id}
-									<div class="w-1/2">
-										<WalletCard {wallet} {config} />
-									</div>
+									<WalletCard {wallet} {config} />
 								{/key}
 							{/each}
 						</div>

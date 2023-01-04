@@ -21,7 +21,7 @@
 	$: validator = stDecoded ? getValidatorByAk(stDecoded.st.validators, ak) : undefined;
 </script>
 
-<div class="container bg-neutral p-4 space-y-4">
+<div class="container bg-neutral p-1 md:p-4 space-y-4">
 	{#if !validator}
 		<div>Validator not found</div>
 	{:else}
@@ -33,11 +33,11 @@
 			</div>
 			<div class="space-y-2 max-w-5xl">
 				{#each Object.entries(validator.state.delegates) as [del, amount]}
-					<div class="navbar rounded-md bg-base-100 p-2">
-						<div class="navbar-start ">
-							<div>{del}</div>
+					<div class="grid grid-cols-auto rounded-md bg-base-100 p-2">
+						<div class="">
+							<div class="break-words break-all">{del}</div>
 						</div>
-						<div class="navbar-end space-x-2">
+						<div class="space-x-2">
 							<div class="border rounded-md p-1">{amount} shares</div>
 							<AeAmount aetto={sharesToAetto(validator, amount)} dropdownReverse />
 						</div>

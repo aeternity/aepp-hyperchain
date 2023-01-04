@@ -6,9 +6,7 @@
 
 <a
 	href={navUrl}
-	data-sveltekit-prefetch
-	class="btn btn-secondary rounded-full no-animation
-   hover:bg-secondary-focus text-secondary-content normal-case
+	class="btn btn-secondary rounded-full no-animation hover:bg-secondary-focus text-secondary-content normal-case
   {currentPath === navUrl ? 'btn-active' : 'btn-ghost'}"
 >
 	{text}

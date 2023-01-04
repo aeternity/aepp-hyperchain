@@ -7,7 +7,7 @@
 	$: leader = st ? getValidatorByAk(st.st.validators, st.hcElection.leader) : null;
 </script>
 
-<div class="container mt-8">
+<div class="container mt-8 p-1">
 	<div class="prose prose-3xl mb-8">
 		<h1 class="font-light">Hyper Chain 0.2</h1>
 		<ul class="space-y-4">
@@ -60,7 +60,7 @@
 			<div class="card-body p-4">
 				<div class=" card-title"><h3>Stats</h3></div>
 				<p>Block Height: {st.height}</p>
-				<p>Entropy String: {st.hcElection.entropy}</p>
+				<p class="break-all">Entropy String: {st.hcElection.entropy}</p>
 				<p>
 					Current Leader: <a class="link link-primary" href={`/validator/${leader?.address}`}>
 						{leader?.state.name}</a

@@ -13,6 +13,11 @@
 	$: aettoStaked = sharesToAetto(validator, myShares);
 
 	let modalOpen: null | 'staking' | 'unstaking' = null;
+	function escClose(k: KeyboardEvent) {
+		if (k.code === 'Escape') {
+			modalOpen = null;
+		}
+	}
 </script>
 
 {#if wallet}
@@ -41,8 +46,9 @@
 			on:click={() => {
 				modalOpen = null;
 			}}
+			on:keydown={escClose}
 		>
-			<div class="modal-box max-w-3xl p-1 md:p-2" on:click|stopPropagation>
+			<div class="modal-box max-w-3xl p-1 md:p-2" on:click|stopPropagation on:keydown={escClose}>
 				<button
 					on:click={() => (modalOpen = null)}
 					class="btn btn-sm btn-circle btn-secondary absolute right-1 top-1"

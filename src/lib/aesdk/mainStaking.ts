@@ -5,7 +5,7 @@ import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 
 export function getMainStakingContract(sdk: AeSdkAepp) {
 	const contractAddress = get(clientGlobalConfigStore)?.stakingContract;
-	const instance = contractAddress ? sdk.getContractInstance({ aci, contractAddress }) : null;
+	const instance = contractAddress ? sdk.initializeContract({ aci, contractAddress }) : null;
 	return instance;
 }
 

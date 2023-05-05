@@ -60,9 +60,9 @@
 				class="btn btn-secondary w-56 {btnDisabled && 'btn-disabled'}"
 				on:click={async () => {
 					callState = 'calling';
-					const stakingContract = await sdk.getContractInstance({
+					const stakingContract = await sdk.initializeContract({
 						aci: stakingContractACI,
-						contractAddress: stakingContrAddr
+						address: stakingContrAddr
 					});
 					const ret = await stakingContract.methods.unstake(validator?.address, shares);
 					console.log('unstaking result', ret);

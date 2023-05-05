@@ -73,9 +73,9 @@
 					callState = 'calling';
 					const stakingContract = await getMainStakingContract(sdk);
 					if (stakingContract) {
-						const ret = await stakingContract.methods.stake(validator?.address, { amount: aetto });
-						console.log('staking result', ret);
-						callState = { code: ret.result.returnType, amount: ret.decodedResult.toString() };
+						const ret = await stakingContract.stake(validator?.address, { amount: aetto });
+						console.log('staking result', ret, ret.decodedResult);
+						callState = { code: ret.result.returnType, amount: ret.decodedResult.shares };
 					} else {
 						console.error('stakingContract not found');
 					}
@@ -90,7 +90,7 @@
 	{:else}
 		<div class="alert alert-info">
 			<p>Return code: {callState.code}</p>
-			<p>Return value: {callState.amount}</p>
+			<p>Staked shares: {callState.amount}</p>
 		</div>
 	{/if}
 </div>

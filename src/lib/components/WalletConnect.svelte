@@ -1,10 +1,7 @@
 <script lang="ts">
-	import type { ClientGlobalConfig } from '$lib/ClientGlobalConfig.js';
-	import { detectWallets } from '../aesdk/walletConnection.js';
-	import {
-		walletConnectionStore,
-		walletConnectModalOpen
-	} from '../stores/walletConnectionStore.js';
+	import type {ClientGlobalConfig} from '$lib/ClientGlobalConfig.js';
+	import {detectWallets} from '../aesdk/walletConnection.js';
+	import {walletConnectionStore, walletConnectModalOpen} from '../stores/walletConnectionStore.js';
 	import WalletCard from './WalletCard.svelte';
 
 	export let config: ClientGlobalConfig;
@@ -65,17 +62,22 @@
 			<div>
 				<div class="bg-base-100">
 					<div class="alert bg-secondary mb-2">
-						<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl">
+						<div class="flex flex-col justify-start prose text-secondary-content max-w-5xl w-full">
 							<div>
-								You need a special instance of
+								You need  to configure your wallet to connect to this HyperChain network.
+								You can do that in
 								<a class="link link-primary" href={config.wallet} target="_blank" rel="noreferrer"
 									>Base Aepp</a
 								>
-								open in another tab. Or you can manually configure the SuperHero extension to connect
-								to this network. You can also use this
-								<a class="link link-primary" href={config.faucet} target="_blank" rel="noreferrer"
+								open in another tab or the SuperHero extension.
+
+								{#if config.faucet}
+									<br />
+									You can also use this
+									<a class="link link-primary" href={config.faucet} target="_blank" rel="noreferrer"
 									>Faucet</a
-								> to fund your acount.
+									> to fund your acount.
+								{/if}
 							</div>
 							<div>
 								Network ID: <span class="text-primary badge badge-outline">{config.networkId}</span>

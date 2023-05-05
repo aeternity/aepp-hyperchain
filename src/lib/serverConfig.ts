@@ -23,7 +23,7 @@ export const configServer = async (): Promise<ServerConfig> => {
 	return {
 		aeNodeURL,
 		networkId,
-		aeFaucetURL: getEnvVar('AE_FAUCET_URL'),
+		aeFaucetURL: getEnvVar('AE_FAUCET_URL', true),
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,
 		hcElectionContract,
@@ -31,9 +31,9 @@ export const configServer = async (): Promise<ServerConfig> => {
 	};
 };
 
-export const getEnvVar = (varName: string): string => {
+export const getEnvVar = (varName: string, optional?: boolean): string => {
 	const envVar = process.env[varName];
-	if (!envVar) {
+	if (!envVar && !optional) {
 		throw new Error(`${varName} environment variable required`);
 	}
 	return envVar;

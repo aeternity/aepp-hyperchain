@@ -1,5 +1,6 @@
 import type { SdkInstance } from './aesdk/serverAeSdk';
 import { mkSdkInstance } from './aesdk/serverAeSdk';
+import { Node } from '@aeternity/aepp-sdk';
 
 export interface ServerConfig {
 	aeNodeURL: string;
@@ -17,11 +18,12 @@ export const configServer = async (): Promise<ServerConfig> => {
 	const stakingContract = getEnvVar('STAKING_CONTRACT');
 	const hcElectionContract = getEnvVar('HC_ELECTION_CONTRACT');
 	const sdkInstance = await mkSdkInstance(aeNodeURL, stakingContract, hcElectionContract);
-	const networkId = await sdkInstance.aeSdk.getNetworkId();
+	const node = new Node(aeNodeURL);
+	const networkId = await node.getNetworkId();
 	return {
 		aeNodeURL,
 		networkId,
-		aeFaucetURL: getEnvVar('AE_FAUCET_URL'),
+		aeFaucetURL: getEnvVar('AE_FAUCET_URL', true),
 		aeWalletURL: getEnvVar('AE_WALLET_URL'),
 		stakingContract,
 		hcElectionContract,
@@ -29,9 +31,9 @@ export const configServer = async (): Promise<ServerConfig> => {
 	};
 };
 
-export const getEnvVar = (varName: string): string => {
+export const getEnvVar = (varName: string, optional?: boolean): string => {
 	const envVar = process.env[varName];
-	if (!envVar) {
+	if (!envVar && !optional) {
 		throw new Error(`${varName} environment variable required`);
 	}
 	return envVar;

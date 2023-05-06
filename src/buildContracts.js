@@ -30,7 +30,7 @@ const getAndCompile = async () => {
 		nodes: [{ name: 'hc-alpha', instance: node }],
 		compilerUrl: COMPILER_URL
 	});
-	const mainStaking = await aeSdk.getContractInstance({ source: mainStakingSource });
+	const mainStaking = await aeSdk.initializeContract({ sourceCode: mainStakingSource });
 	// console.log('ACI is: ', mainStaking._aci);
 	const msACI = JSON.stringify(mainStaking._aci);
 	const msFileContents = `export default ${msACI}`;
@@ -43,7 +43,7 @@ const getAndCompile = async () => {
 	});
 
 	const hcElectionSource = await (await axios.get(HC_ELECTION_URL)).data.trim();
-	const hcElection = await aeSdk.getContractInstance({ source: hcElectionSource });
+	const hcElection = await aeSdk.initializeContract({ sourceCode: hcElectionSource });
 	const hcACI = JSON.stringify(hcElection._aci);
 	const hcFileContents = `export default ${hcACI}`;
 	const hcFile = 'src/lib/aesdk/HCElectionACI.js';

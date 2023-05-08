@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
+	import {clientGlobalConfigStore, minStakeAetto} from '$lib/stores/clientGlobalConfigStore';
 	import AeAmount from './CoinAmount.svelte';
-	import stakingContractACI from '$lib/aesdk/MainStakingACI';
-	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
-	import { sharesToAetto, type Validator } from '../aesdk/contractState';
+	import stakingContractACI from '$lib/contracts/MainStaking.aci.json';
+	import {walletConnectionStore} from '$lib/stores/walletConnectionStore';
+	import {sharesToAetto, type Validator} from '../aesdk/contractState';
 	import AmountSlider from './AmountSlider.svelte';
 
 	export let sharesInValidator = 0n;

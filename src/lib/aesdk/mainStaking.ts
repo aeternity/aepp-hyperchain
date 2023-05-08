@@ -1,5 +1,5 @@
 import type { AeSdkAepp } from '@aeternity/aepp-sdk';
-import aci from '$lib/aesdk/MainStakingACI';
+import aci from '$lib/contracts/MainStaking.aci.json';
 import { get } from 'svelte/store';
 import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 

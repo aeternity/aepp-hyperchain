@@ -1,7 +1,7 @@
 import { AeSdk, generateKeyPair, MemoryAccount, Node } from '@aeternity/aepp-sdk';
 import type { ContractInstance } from '@aeternity/aepp-sdk/es/contract/aci';
-import msACI from './MainStakingACI';
-import hceACI from './HCElectionACI';
+import msACI from '../contracts/MainStaking.aci.json';
+import hceACI from '../contracts/HCElection.aci.json';
 
 export interface SdkInstance {
 	keypair: ReturnType<typeof generateKeyPair>;

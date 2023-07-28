@@ -14,7 +14,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 			noExternal:
 				command === 'serve'
 					? []
-					: ['@aeternity/aepp-sdk', '@fortawesome/free-solid-svg-icons', 'dotenv']
+					: ['@aeternity/aepp-sdk', '@aeternity/argon2',
+						'@fortawesome/free-solid-svg-icons', 'dotenv']
 		}
 	};
 });

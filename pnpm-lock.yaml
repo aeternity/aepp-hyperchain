@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@aeternity/aepp-sdk':
-    specifier: ~13.1.0
-    version: 13.1.0
+    specifier: ~13.0.1
+    version: 13.0.1
   argon2:
     specifier: ^0.30.3
     version: 0.30.3
@@ -139,8 +139,8 @@ packages:
       sha.js: 2.4.11
     dev: false
 
-  /@aeternity/aepp-sdk@13.1.0:
-    resolution: {integrity: sha512-HM0lpfTVPbDdyhexxQyGkP5jc0fyi2oNcranMDtoCaetitteEXgqWFt/5/Fe6ruK8NyARJKv47xwk9/hDi7E2g==}
+  /@aeternity/aepp-sdk@13.0.1:
+    resolution: {integrity: sha512-kQ12UUtYJ5tBucJIDKJbWbpkCuBaqphkWcyjDL7HdOeycCrFjPcjYGMkJJfCmQ8VnVoCXxUjywyDF5vkHc296g==}
     engines: {node: '>=14.19.0'}
     dependencies:
       '@aeternity/aepp-calldata': 1.4.0
@@ -157,16 +157,13 @@ packages:
       '@types/uuid': 9.0.2
       '@types/webextension-polyfill': 0.10.1
       '@types/websocket': 1.0.5
-      '@types/ws': 8.5.5
       aes-js: 3.1.2
       bignumber.js: 9.1.1
       bip32-path: 0.4.2
       blakejs: 1.2.1
       bs58: 5.0.0
       buffer: 6.0.3
-      canonicalize: 2.0.0
       events: 3.3.0
-      isomorphic-ws: 5.0.0(ws@8.13.0)
       json-bigint: 1.0.0
       process: 0.11.10
       rlp: 3.0.0
@@ -175,12 +172,9 @@ packages:
       tweetnacl-auth: 1.0.1
       varuint-bitcoin: 1.1.2
       websocket: 1.0.34
-      ws: 8.13.0
     transitivePeerDependencies:
-      - bufferutil
       - encoding
       - supports-color
-      - utf-8-validate
     dev: false
 
   /@aeternity/argon2-browser@0.1.2:
@@ -951,12 +945,6 @@ packages:
       '@types/node': 18.17.1
     dev: false
 
-  /@types/ws@8.5.5:
-    resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
-    dependencies:
-      '@types/node': 18.17.1
-    dev: false
-
   /@typescript-eslint/eslint-plugin@6.2.0(@typescript-eslint/parser@6.2.0)(eslint@8.45.0)(typescript@5.1.6):
     resolution: {integrity: sha512-rClGrMuyS/3j0ETa1Ui7s6GkLhfZGKZL3ZrChLeAiACBE/tRc1wq8SNZESUuluxhLj9FkUefRs2l6bCIArWBiQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -1369,10 +1357,6 @@ packages:
   /caniuse-lite@1.0.30001517:
     resolution: {integrity: sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==}
     dev: true
-
-  /canonicalize@2.0.0:
-    resolution: {integrity: sha512-ulDEYPv7asdKvqahuAY35c1selLdzDwHqugK92hfkzvlDCwXRRelDkR+Er33md/PtnpqHemgkuDPanZ4fiYZ8w==}
-    dev: false
 
   /chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -2389,14 +2373,6 @@ packages:
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
-
-  /isomorphic-ws@5.0.0(ws@8.13.0):
-    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
-    peerDependencies:
-      ws: '*'
-    dependencies:
-      ws: 8.13.0
-    dev: false
 
   /jiti@1.19.1:
     resolution: {integrity: sha512-oVhqoRDaBXf7sjkll95LHVS6Myyyb1zaunVwk4Z0+WPSW4gjS0pl01zYKHScTuyEhQsFxV5L4DR5r+YqSyqyyg==}
@@ -3614,19 +3590,6 @@ packages:
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
-
-  /ws@8.13.0:
-    resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
 
   /yaeti@0.0.6:
     resolution: {integrity: sha512-MvQa//+KcZCUkBTIC9blM+CU9J2GzuTytsOUwf2lidtvkx/6gnEp1QvJv34t9vdjhFmha/mUiNDbN0D0mJWdug==}

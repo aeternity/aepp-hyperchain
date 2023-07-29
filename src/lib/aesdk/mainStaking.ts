@@ -1,11 +1,13 @@
 import type { AeSdkAepp } from '@aeternity/aepp-sdk';
-import aci from '$lib/aesdk/MainStakingACI';
+import aci from '$lib/contracts/MainStaking.aci.json';
 import { get } from 'svelte/store';
 import { clientGlobalConfigStore } from '$lib/stores/clientGlobalConfigStore';
 
 export function getMainStakingContract(sdk: AeSdkAepp) {
 	const contractAddress = get(clientGlobalConfigStore)?.stakingContract;
-	const instance = contractAddress ? sdk.getContractInstance({ aci, contractAddress }) : null;
+	const instance = contractAddress
+		? sdk.initializeContract({ aci, address: contractAddress })
+		: null;
 	return instance;
 }
 

@@ -5,16 +5,6 @@ import { defineConfig } from 'vite';
 export default defineConfig(({ command, mode, ssrBuild }) => {
 	return {
 		plugins: [sveltekit({})],
-		experimental: { prebundleSvelteLibraries: true },
-		optimizeDeps: {
-			esbuildOptions: { target: ['es2021'] }
-		},
-		build: { target: ['es2020'], sourcemap: true },
-		ssr: {
-			noExternal:
-				command === 'serve'
-					? []
-					: ['@aeternity/aepp-sdk', '@fortawesome/free-solid-svg-icons', 'dotenv']
-		}
+		build: { target: ['es2022'], sourcemap: true }
 	};
 });

@@ -5,9 +5,9 @@ export const getContractState = async (
 	sdkInstance: SdkInstance
 ): Promise<[MainStakingState, HCElectionState]> => {
 	// console.log('staking contract', sdkInstance.stakingContract);
-	const resp = await sdkInstance.stakingContract.call('get_state', [], { callStatic: true });
+	const resp = await sdkInstance.stakingContract.$call('get_state', [], { callStatic: true });
 	// console.log('resp', resp.decodedResult);
-	const hcElectionState = await sdkInstance.hcElectionContract.call('get_state', [], {
+	const hcElectionState = await sdkInstance.hcElectionContract.$call('get_state', [], {
 		callStatic: true
 	});
 	// console.log('hcElectionState', hcElectionState);

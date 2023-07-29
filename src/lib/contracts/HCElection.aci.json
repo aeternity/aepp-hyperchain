@@ -1,0 +1,117 @@
+[
+	{ "namespace": { "name": "ListInternal", "typedefs": [] } },
+	{ "namespace": { "name": "List", "typedefs": [] } },
+	{
+		"contract": {
+			"functions": [
+				{
+					"arguments": [],
+					"name": "sorted_validators",
+					"payable": false,
+					"returns": { "list": [{ "tuple": ["address", "int"] }] },
+					"stateful": false
+				},
+				{
+					"arguments": [],
+					"name": "total_stake",
+					"payable": false,
+					"returns": "int",
+					"stateful": false
+				},
+				{
+					"arguments": [],
+					"name": "post_elect",
+					"payable": false,
+					"returns": "unit",
+					"stateful": true
+				}
+			],
+			"kind": "contract_interface",
+			"name": "MainStaking",
+			"payable": false,
+			"typedefs": []
+		}
+	},
+	{
+		"contract": {
+			"functions": [
+				{
+					"arguments": [
+						{ "name": "main_staking_ct", "type": "MainStaking" },
+						{ "name": "entropy_str", "type": "string" }
+					],
+					"name": "init",
+					"payable": false,
+					"returns": "HCElection.state",
+					"stateful": false
+				},
+				{
+					"arguments": [
+						{ "name": "entropy_str", "type": "string" },
+						{ "name": "commitments", "type": { "map": ["hash", { "list": ["address"] }] } }
+					],
+					"name": "elect",
+					"payable": false,
+					"returns": { "tuple": ["address", "int"] },
+					"stateful": true
+				},
+				{
+					"arguments": [
+						{ "name": "entropy_str", "type": "string" },
+						{ "name": "commitments", "type": { "map": ["hash", { "list": ["address"] }] } }
+					],
+					"name": "elect_next",
+					"payable": false,
+					"returns": { "tuple": ["address", "int"] },
+					"stateful": false
+				},
+				{
+					"arguments": [],
+					"name": "leader",
+					"payable": false,
+					"returns": "address",
+					"stateful": false
+				},
+				{
+					"arguments": [],
+					"name": "added_stake",
+					"payable": false,
+					"returns": "int",
+					"stateful": false
+				},
+				{
+					"arguments": [],
+					"name": "get_state",
+					"payable": false,
+					"returns": "HCElection.get_state_response",
+					"stateful": false
+				}
+			],
+			"kind": "contract_main",
+			"name": "HCElection",
+			"payable": false,
+			"state": {
+				"record": [
+					{ "name": "main_staking_ct", "type": "MainStaking" },
+					{ "name": "entropy", "type": "string" },
+					{ "name": "leader", "type": "address" },
+					{ "name": "added_stake", "type": "int" }
+				]
+			},
+			"typedefs": [
+				{
+					"name": "get_state_response",
+					"typedef": {
+						"record": [
+							{ "name": "main_staking_ct", "type": "MainStaking" },
+							{ "name": "entropy", "type": "string" },
+							{ "name": "leader", "type": "address" },
+							{ "name": "added_stake", "type": "int" }
+						]
+					},
+					"vars": []
+				}
+			]
+		}
+	}
+]

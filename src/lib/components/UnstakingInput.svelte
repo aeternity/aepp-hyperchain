@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { clientGlobalConfigStore, minStakeAetto } from '$lib/stores/clientGlobalConfigStore';
+	import {clientGlobalConfigStore, minStakeAetto} from '$lib/stores/clientGlobalConfigStore';
 	import AeAmount from './CoinAmount.svelte';
-	import stakingContractACI from '$lib/aesdk/MainStakingACI';
-	import { walletConnectionStore } from '$lib/stores/walletConnectionStore';
-	import { sharesToAetto, type Validator } from '../aesdk/contractState';
+	import stakingContractACI from '$lib/contracts/MainStaking.aci.json';
+	import {walletConnectionStore} from '$lib/stores/walletConnectionStore';
+	import {sharesToAetto, type Validator} from '../aesdk/contractState';
 	import AmountSlider from './AmountSlider.svelte';
 
 	export let sharesInValidator = 0n;
@@ -60,13 +60,13 @@
 				class="btn btn-secondary w-56 {btnDisabled && 'btn-disabled'}"
 				on:click={async () => {
 					callState = 'calling';
-					const stakingContract = await sdk.getContractInstance({
+					const stakingContract = await sdk.initializeContract({
 						aci: stakingContractACI,
-						contractAddress: stakingContrAddr
+						address: stakingContrAddr
 					});
-					const ret = await stakingContract.methods.unstake(validator?.address, shares);
+					const ret = await stakingContract.unstake(validator?.address, shares);
 					console.log('unstaking result', ret);
-					callState = { code: ret.result.returnType, amount: ret.decodedResult };
+					callState = { code: ret.result.returnType, amount: ret.decodedResult.shares };
 				}}
 				>unstake
 			</button>
@@ -78,7 +78,7 @@
 	{:else}
 		<div class="alert alert-info">
 			<p>Return code: {callState.code}</p>
-			<p>Return value: {callState.amount}</p>
+			<p>Unstaked shares: {callState.amount}</p>
 		</div>
 	{/if}
 </div>

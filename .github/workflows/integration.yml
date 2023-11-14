@@ -1,0 +1,21 @@
+name: integration
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  publish:
+    uses: aeternity/github-actions/.github/workflows/_publish-docker.yml@v2.0.0
+    secrets: inherit
+    with:
+      DOCKERHUB_REPO: "aeternitybot/${{ github.event.repository.name }}"
+  deploy:
+    uses: aeternity/github-actions/.github/workflows/_deploy-gitops.yml@v2.0.0
+    needs: [publish]
+    secrets: inherit
+    with:
+      DEPLOY_ENV: dev
+      DEPLOY_APP: ${{ github.event.repository.name }}
+      DEPLOY_VERSION: ${{ github.ref_name }}
+      DEPLOY_SUBDOMAIN: hyperchain

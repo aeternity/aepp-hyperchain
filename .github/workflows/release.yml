@@ -13,7 +13,7 @@ jobs:
     needs: [publish]
     secrets: inherit
     with:
-      DEPLOY_ENV: stg
+      DEPLOY_ENV: stg #TODO change to prd
       DEPLOY_APP: ${{ github.event.repository.name }}
       DEPLOY_TAG: ${{ github.ref_name }}
       DEPLOY_SUBDOMAIN: hyperchain

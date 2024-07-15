@@ -13,7 +13,7 @@ jobs:
     needs: [publish]
     secrets: inherit
     with:
-      DEPLOY_ENV: dev
+      DEPLOY_ENV: stg
       DEPLOY_APP: ${{ github.event.repository.name }}
       DEPLOY_VERSION: "pr-${{ github.event.number }}"
       DEPLOY_SUBDOMAIN: "pr-${{ github.event.number }}-hyperchain"

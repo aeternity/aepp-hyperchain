@@ -57,10 +57,9 @@
 	</div>
 	{#if st}
 		<div class="card border border-primary">
-			<div class="card-body p-4">
+			<div class="card-body p-3">
 				<div class=" card-title"><h3>Stats</h3></div>
 				<p>Block Height: {st.height}</p>
-				<p class="break-all">Entropy String: {st.hcElection.entropy}</p>
 				<p>
 					Current Leader: <a class="link link-primary" href={`/validator/${leader?.address}`}>
 						{leader?.state.name}</a

@@ -1,4 +1,4 @@
-README.md#!/bin/bash
+#!/bin/bash
 
 # Parsing CLI arguments
 while [[ "$#" -gt 0 ]]; do

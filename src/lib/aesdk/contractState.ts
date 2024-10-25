@@ -5,17 +5,17 @@ export const getContractState = async (
 	sdkInstance: SdkInstance
 ): Promise<[MainStakingState, HCElectionState]> => {
 	// console.log('staking contract', sdkInstance.stakingContract);
-	console.log('Call MainStaking:get_state');
+	// console.log('Call MainStaking:get_state');
 	const resp = await sdkInstance.stakingContract.$call('get_state', [], { callStatic: true });
-	console.log('MainStaking state', resp.decodedResult);
+	// console.log('MainStaking state', resp.decodedResult);
 	const msState = MainStakingState.parse(resp.decodedResult);
 
 
-	console.log('Get HCElection state');
+	// console.log('Get HCElection state');
 	const hcElectionState = await sdkInstance.hcElectionContract.$call('get_state', [], {
 		callStatic: true
 	});
-	console.log('HCElection state', hcElectionState.decodedResult);
+	// console.log('HCElection state', hcElectionState.decodedResult);
 	const hcState = HCElectionState.parse(hcElectionState.decodedResult);
 	// console.log('Call HCElection:leader');
 	// const leader = await sdkInstance.hcElectionContract.$call('leader', [], {
@@ -83,7 +83,7 @@ export const MainStakingState = z
 	.strict();
 export type MainStakingState = z.infer<typeof MainStakingState>;
 
-export const HCElectionState = z.object({ leader: z.string() });
+export const HCElectionState = z.object({ leader: z.string(), epoch: z.bigint() });
 export type HCElectionState = z.infer<typeof HCElectionState>;
 
 export const ContractState = z.object({

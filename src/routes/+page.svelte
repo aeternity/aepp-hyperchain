@@ -9,7 +9,7 @@
 
 <div class="container mt-8 p-1">
 	<div class="prose prose-3xl mb-8">
-		<h1 class="font-light">Hyper Chain 0.2</h1>
+		<h1 class="font-light">Hyper Chain 0.3</h1>
 		<ul class="space-y-4">
 			<li>
 				<DocumentationLink

@@ -4,25 +4,16 @@ import { z } from 'zod';
 export const getContractState = async (
 	sdkInstance: SdkInstance
 ): Promise<[MainStakingState, HCElectionState]> => {
-	// console.log('staking contract', sdkInstance.stakingContract);
-	// console.log('Call MainStaking:get_state');
-	const resp = await sdkInstance.stakingContract.$call('get_state', [], { callStatic: true });
-	// console.log('MainStaking state', resp.decodedResult);
+	const resp = await sdkInstance.stakingContract.get_state();
 	const msState = MainStakingState.parse(resp.decodedResult);
 
+	const leader = await sdkInstance.hcElectionContract.leader();
+	const epoch = await sdkInstance.hcElectionContract.epoch();
 
-	// console.log('Get HCElection state');
-	const hcElectionState = await sdkInstance.hcElectionContract.$call('get_state', [], {
-		callStatic: true
+	const hcState = HCElectionState.parse({
+		leader: leader.decodedResult,
+		epoch: epoch.decodedResult,
 	});
-	// console.log('HCElection state', hcElectionState.decodedResult);
-	const hcState = HCElectionState.parse(hcElectionState.decodedResult);
-	// console.log('Call HCElection:leader');
-	// const leader = await sdkInstance.hcElectionContract.$call('leader', [], {
-	// 	callStatic: true
-	// });
-	// console.log('hcElection leader', leader.decodedResult);
-	// const hcState = HCElectionState.parse({leader: leader.decodedResult});
 
 	return [msState, hcState];
 };

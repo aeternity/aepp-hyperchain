@@ -5,7 +5,7 @@ import { Node } from '@aeternity/aepp-sdk';
 export interface ServerConfig {
 	aeNodeURL: string;
 	networkId: string;
-	aeFaucetURL: string;
+	aeFaucetURL?: string;
 	aeWalletURL: string;
 	stakingContract: string;
 	hcElectionContract: string;
@@ -31,9 +31,11 @@ export const configServer = async (): Promise<ServerConfig> => {
 	};
 };
 
-export const getEnvVar = (varName: string, optional?: boolean): string => {
+function getEnvVar(varName: string): string;
+function getEnvVar(varName: string, optional: true): string | undefined;
+function getEnvVar(varName: string, optional?: true): string | undefined {
 	const envVar = process.env[varName];
-	if (!envVar && !optional) {
+	if (envVar == null && !optional) {
 		throw new Error(`${varName} environment variable required`);
 	}
 	return envVar;

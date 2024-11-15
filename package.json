@@ -40,7 +40,6 @@
 		"svelte-fa": "^3.0.4",
 		"svelte-preprocess": "^5.0.4",
 		"tailwindcss": "^3.3.3",
-		"ts-node": "^10.9.1",
 		"tslib": "^2.6.1",
 		"typeface-roboto": "^1.1.13",
 		"typescript": "^5.1.6",

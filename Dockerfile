@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base-builder
+FROM node:22-alpine AS base-builder
 RUN apk add make gcc g++ git python3
 RUN corepack enable
 RUN corepack prepare pnpm@8.6.5 --activate
@@ -17,7 +17,7 @@ RUN pnpm install
 COPY . .
 RUN pnpm run build
 
-FROM node:18-alpine AS runtime
+FROM node:22-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json .
